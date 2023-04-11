@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main(){
+int main(void) {
   int sum, number1, number2;
 
   printf("Enter two integers, please: ");

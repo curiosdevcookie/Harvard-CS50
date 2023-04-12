@@ -25,6 +25,7 @@ int get_size(void) {
   if (n > 1) {
     return n;
   }
+  return 0;
 }
 
 void print_grid(int n) {

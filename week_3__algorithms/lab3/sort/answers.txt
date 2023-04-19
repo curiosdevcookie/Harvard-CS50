@@ -1,0 +1,15 @@
+sort1 uses: Bubble sort
+
+How do you know?:
+Because it takes a considerably less amount of time to sort sorted50000.txt than random50000.txt.
+
+sort2 uses: Merge sort
+
+How do you know?:
+Because it takes the smallest amount of time when sorting random10000.txt and random50000.txt.
+
+sort3 uses: Selection sort
+
+How do you know?:
+Because the time it takes to sort random50000.txt and sorted50000.txt is the same. That's because the upper bound == lower bound (Θ) for selection sort.
+

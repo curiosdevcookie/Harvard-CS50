@@ -1,0 +1,6 @@
+1. I would characterize their audio aura as being energetic, happy, and danceable.
+
+2. I would describe the audio aura as being not representative of the listener because it is based on just one year's worth of the listener’s top 100 songs. 
+I would propose to get a bigger sample size.
+I would also propose to first sort the list by energy, danceability & valence, then get the top 10% of the list and the lowest 10% of the list and average the audio features of those two groups. 
+Then I would compare the averages of the two groups to see if there is a significant difference between the two groups. Also, compare those averages to the absolute highest and lowest numbers of songs in the spotify music list, in oder to see where the personal aura ranks compare to those.

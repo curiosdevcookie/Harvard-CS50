@@ -66,6 +66,12 @@ SELECT COUNT(DISTINCT column_name) FROM table_name;
 SELECT SUM(column_name) FROM table_name;
 ```
 
+### AVG
+
+```sql
+SELECT AVG(column_name) FROM table_name;
+```
+
 ## SQL Praedicates
 
 ### LIKE
@@ -146,6 +152,15 @@ WHERE condition
 GROUP BY column_name(s)
 ```
 
+### ORDER BY
+
+```sql
+SELECT column_name(s)
+FROM table_name
+WHERE condition
+ORDER BY column_name(s) ASC|DESC;
+```
+
 ### HAVING
 
 ```sql
@@ -181,4 +196,3 @@ WHERE EXISTS
 - FOREIGN KEY (database will reference the primary key column in another table)
 - CHECK (check if the value in a column meets a specific condition)
 - DEFAULT (set a default value for a column if no value is specified)
-

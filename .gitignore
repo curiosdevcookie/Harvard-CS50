@@ -1,5 +1,6 @@
 .DS_Store
 .trunk
+/.hintrc
 .vscode/
 /lectures
 /week_0__scratch

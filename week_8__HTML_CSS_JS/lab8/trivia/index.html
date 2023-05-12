@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width,initial-scale=1" name="viewport">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&amp;display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+          
+          function evaluateQuestion(id){
+              if(id == "answer3"){
+                  document.getElementById("correct").hidden = false;
+                  document.getElementById("incorrect").hidden = true;
+                  document.getElementById(id).classList.add("correct");
+              }else{
+                  document.getElementById("correct").hidden = true;
+                  document.getElementById("incorrect").hidden = false;
+                  document.getElementById(id).classList.add("incorrect");
+              }
+            return id;
+          }
+
+          function checkAnswer(){
+            let response = document.getElementById("response");
+          
+                if(response.value.toLowerCase() == "blue whale"){
+                    addSucessMessage("h3", 1);
+                    response.style.color = "green";
+                }else{
+                    addFailureMessage("h3", 1);
+                    response.style.color = "red";
+                }
+            return response;
+          };
+            
+          function addSucessMessage(tag, instance){
+            let h2 = document.getElementsByTagName(tag)[instance];
+            let wrong = document.createElement("p");
+            wrong.appendChild(document.createTextNode("Correct!"));
+            h2.appendChild(wrong);
+          }
+
+          function addFailureMessage(tag, instance){
+              let h2 = document.getElementsByTagName(tag)[instance];
+              let wrong = document.createElement("p");
+              wrong.appendChild(document.createTextNode("Incorrect!"));
+              h2.appendChild(wrong);
+          }
+            
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <h3>How many hairs does a human head have on average?</h3>
+                    <p id="correct" hidden>Correct!</p>
+                    <p id="incorrect" hidden>Incorrect!</p>
+
+                    <button name="answer" id="answer1" onclick="evaluateQuestion(id);">1,000</button>
+                    <button name="answer" id="answer2" onclick="evaluateQuestion(id);">10,000</button>
+                    <button name="answer" id="answer3" onclick="evaluateQuestion(id);">100,000</button>
+                    <button name="answer" id="answer4" onclick="evaluateQuestion(id);">1,000,000</button>
+                    <button name="answer" id="answer5" onclick="evaluateQuestion(id);">10,000,000</button>
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                
+                <h3>What is the world's largest sea animal?</h3>
+                <label for="response"></label>
+                <input type="text" id="response" placeholder="Enter your answer here">
+                <button onclick="checkAnswer();">Check Answer</button>
+            </div>
+        </div>
+    </body>
+</html>

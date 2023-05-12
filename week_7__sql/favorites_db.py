@@ -12,6 +12,7 @@ rows = db.execute("SELECT COUNT(*) AS n FROM favorites WHERE problem = ?;", favo
 row = rows[0] # Returns the first and only row because COUNT(*) returns a single row with a single column
 print(f"How many favored your choice: {row['n']}.")
 
+# ACID
 # Atomicity: All or nothing
 # Consistency: Database is always in a valid state
 # Isolation: Transactions can't interfere with each other

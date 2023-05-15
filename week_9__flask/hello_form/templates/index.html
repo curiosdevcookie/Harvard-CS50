@@ -1,0 +1,9 @@
+
+{% extends "layout.html" %}
+{% block main %}
+<form action="/greet" method="post">
+  <label for="name">Enter a name please</label>
+  <input autofocus autocomplete= "off" type="text" name="name" id="name" placeholder="Enter your name">
+  <button type="submit">Greet</button>
+</form>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block main %}
+  <h1>Registrants for Sports</h1>
+  <ul>
+    {% for name in registrants %}
+      <li>{{ name }}: {{ registrants[name] }}</li>
+    {% endfor %}
+  </ul>
+
+  <p>Back to Registration:</p>
+  <button type="button" onclick="location.href='/';">Register</button>
+{% endblock %}

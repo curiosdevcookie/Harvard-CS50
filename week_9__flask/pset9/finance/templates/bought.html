@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register for App
+{% endblock %}
+
+{% block main %}
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Symbol</th>
+          <th>Shares</th>
+          <th>User Cash Amount</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ name }}</td>
+          <td>{{ price }}</td>
+          <td>{{ symbol }}</td>
+          <td>{{ shares }}</td>
+          <td>{{ user_cash }}</td>
+        </tr>
+      </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register for App
+{% endblock %}
+
+{% block main %}
+    <form action="/buy" method="post">
+        <div class="mb-3">
+            <label for="symbol">Enter a symbol please</label>
+            <input autocomplete="on" autofocus class="form-control mx-auto w-auto" id="symbol" name="symbol" placeholder="Enter symbol please" type="text">
+        </div>
+        <div class="mb-3">
+            <label for="shares">Enter number of shares please</label>
+            <input autocomplete="on" autofocus class="form-control mx-auto w-auto" id="shares" name="shares" placeholder="Enter number of shares please" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit">Buy!</button>
+    </form>
+{% endblock %}

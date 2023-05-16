@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register for App
+{% endblock %}
+
+{% block main %}
+    <form action="/quote" method="post">
+        <div class="mb-3">
+            <label for="symbol">Enter a symbol please</label>
+            <input autocomplete="on" autofocus class="form-control mx-auto w-auto" id="symbol" name="symbol" placeholder="Enter symbol please" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit">Get Quote</button>
+    </form>
+{% endblock %}

@@ -6,6 +6,38 @@
 
 {% block main %}
 
-<h3>This is your Portfolio:</h3>
+<header>
+  <h3>This is your Portfolio:</h3>
+</header>
+<main>
+  <table>
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Name</th>
+        <th>Shares</th>
+        <th>Price</th>
+        <th>Cash</th>
+        <th>TOTAL</th>
+        <th>current_cash</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td>{{ symbol }}</td>
+        <td>{{ name }}</td>
+        <td>{{ shares }}</td>
+        <td>{{ price }}</td>
+        <td>{{ cash }}</td>
+        <td>{{ total }}</td>
+        <td>{{ current_cash }}</td>
+
+      </tr>
+
+  </table>
+</main>
+
+
 
 {% endblock %}

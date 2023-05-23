@@ -114,6 +114,24 @@ SELECT id
 
 -- => 36
 
+SELECT destination_airport_id
+  FROM flights
+  WHERE year = '2021' AND month = '7' AND day = '29' AND origin_airport_id = '8'
+  ORDER BY hour ASC
+  LIMIT 1;
+
+-- => 4
+
+SELECT city
+  FROM airports
+  WHERE id IN (SELECT destination_airport_id
+  FROM flights
+  WHERE year = '2021' AND month = '7' AND day = '29' AND origin_airport_id = '8'
+  ORDER BY hour ASC
+  LIMIT 1);
+
+-- => New York City 😁
+
 SELECT * 
   FROM passengers
   WHERE flight_id = '36';

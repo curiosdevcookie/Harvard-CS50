@@ -6,34 +6,41 @@
 
   <title>Urban Spelling Bee</title>
 
-  <link rel='stylesheet' href='./index.css' type='text/css' media='screen' />
-  <link rel='icon' href='./favicon.ico' type='image/x-icon' />
-  <script src='./index.js' type='module'></script>
-  <script src='./scripts/circle.js' type='module'></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+  <script src="{{ url_for('static', filename='js/index.js') }}" type='module'></script>
+  <!-- <script src="{{ url_for('static', filename='js/API.js') }}"></script> -->
   <!-- <script src='https://github.com/curiosdevcooki/curiosdevcookie-portfolio/blob/d05042ec67f95d5dee8816d600bcec13286b3f2b/components/footer/cdc-footer.js' type='module'></script> -->
 
 </head>
 <body>
   <header>
     <h1>Urban Spelling Bee</h1>
+    <button onclick="executeAPICall();">Execute API Call</button>
+
+    <script>
+        function executeAPICall() {
+            // Send a GET request to the /api_call route
+            fetch('/api_call')
+                .then(response => response.text())
+                .then(data => console.log(data))
+                .catch(err => console.error(err));
+        }
+    </script>
   </header>
 
   <main>
-
-    <!-- <section id='letters'>
-      <h2>Your letters for today</h2>
-      <button class='letter' id='b1'>A</button>
-      <button class='letter' id='b2'>B</button>
-      <button class='letter' id='b3'>C</button>
-      <button class='letter' id='b4'>D</button>
-      <button class='letter' id='b5'>E</button>
-      <button class='letter' id='b6'>F</button>
-      <button class='letter' id='b7'>G</button>
-    </section> -->
-
     <section id='circle-comb'>
       <h2>Your letters for today</h2>
-      <svg version="1.1" id="comb" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            <button class='letter' id='b1'>A</button>
+            <button class='letter' id='b2'>B</button>
+            <button class='letter' id='b3'>C</button>
+            <button class='letter' id='b4'>D</button>
+            <button class='letter' id='b5'>E</button>
+            <button class='letter' id='b6'>F</button>
+            <button class='letter' id='b7'>G</button>
+            
+      <!-- <svg version="1.1" id="comb" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         viewBox="0 0 727.3 833.6" style="enable-background:new 0 0 727.3 833.6;" xml:space="preserve">
       <style type="text/css">
         .st0{fill:#FFF545;}
@@ -100,33 +107,31 @@
         </g>
         <text id="letter4" transform="matrix(1 0 0 1 201.6699 671.1409)" class="st1 st2">D</text>
       </g>
-      </svg>
+      </svg> -->
     </section>
 
-    <section id='user-input'>
-      <h2>User Input</h2>
-      <button id='delete' type='button'>Delete Letter</button>
-      <input id='input-word' type='text' minlength='5' placeholder='Your word goes in here' />
-      <button id='submit' type='button'>Submit Word</button>
-    </section>
+    <form action="/" method="post">
+        <h2>User Input</h2>
+        <button id='delete' type='button'>Delete Letter</button>
+        <input id='input-word' type='text' minlength='5' name='term' placeholder='Look, your word goes in here'>
+        <button id='submit' type='submit'>Try</button>
+    </form>
 
-    <section id='definition-section'>
-      <h2>Definitions and Examples</h2>
-      <button id='word-definition-button' type='button'>Get definition</button>
+    <section id='definition-example-section'>
+      <h2>Definition</h2>
       <label for='definition-area'></label>
-      <textarea id='definition-area' name='definition-area'></textarea>
- 
-      <button id='word-example-button' type='button'>See Example</button>
+      <textarea id='definition-area' name='definition-area' title='Definition' readonly></textarea>
+      
+      <h2>Example</h2>
       <label for='example-area'></label>
-      <textarea id='example-area' name='example-area'></textarea>
+      <textarea id='example-area' name='example-area' title='Example' readonly></textarea>
       
       <p>Source: <span id='source'></span></p>
     </section>
 
-    <section id='word-list'>
+    <section>
       <h2>Word List</h2>
-      <ul>
-      </ul>
+      <ul id='wordlist'></ul>
     </section>
 
     <section id='score'>
@@ -137,7 +142,7 @@
   </main>
 
   <footer>
-  <!-- <cdc-footer></cdc-footer> -->
+    <!-- <cdc-footer></cdc-footer> -->
   </footer>
 </body>
 </html>

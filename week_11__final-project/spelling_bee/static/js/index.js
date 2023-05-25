@@ -41,7 +41,6 @@ letters.map((letter) => {
   if (element) {
     element.addEventListener('click', letterValueInput);
   }
-  console.log(letter);
 });
 
 function letterValueInput() {
@@ -74,19 +73,12 @@ function fetchAPI() {
 }
 
 //wordlist
-
 function appendWord() {
-  const wordListElement = document.getElementById('wordlist');
   const inputWordValue = document.getElementById('input-word').value;
-  console.log(inputWordValue);
-
+  const wordList = document.getElementById('word-list');
   const liElement = document.createElement('li');
-
-  const word = document.createTextNode(inputWordValue);
-  liElement.appendChild(word);
-  console.log(word);
-
-  wordListElement.appendChild(liElement);
+  liElement.textContent = inputWordValue;
+  wordList.appendChild(liElement);
+  console.log(inputWordValue);
   console.log(liElement);
-
 }

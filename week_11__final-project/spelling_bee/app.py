@@ -1,41 +1,125 @@
+import random
 import sqlite3
-from flask import Flask, render_template, request
+
+from flask import Flask, render_template, request, session, redirect
 import requests
 
 app = Flask(__name__)
+app.secret_key = 'secret key'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
      # Create the wordlist database
     create_wordlist_database()
+    create_api_results_database()
+
+    if 'random_seven' not in session:
+        # Generate random_seven if it's not already in the session
+        alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+                    'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+                    'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+        random_seven = random.sample(alphabet, 7)
+        session['random_seven'] = random_seven
+    else:
+        random_seven = session['random_seven']  # Retrieve random_seven from the session
+
+
     if request.method == 'POST':
       term = request.form.get("term")
       # insert a word
       insert_word(term)
-      print(f"{term} was inserted into wordlist.")
-      return render_template('index.html', term=term)
+      check_user_input_in_api_results(term)
+      session['term'] = term
+
+      return redirect("/")
+    
+
     elif request.method == 'GET':
-      return render_template('index.html')
+
+      if 'term' in session:
+            term = session['term']  # Retrieve the term from the session
+            print(f"{term} was retrieved from the session.")
+      else:
+            term = None
+
+      b1 = random_seven[0]
+      b2 = random_seven[1]
+      b3 = random_seven[2]
+      b4 = random_seven[3]
+      b5 = random_seven[4]
+      b6 = random_seven[5]
+      b7 = random_seven[6]
+
+      # some_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+      # some_word = 'ABCD'
+      # # check if some_word contains only letters from some_letters:
+      # if all([char in some_letters for char in some_word]):
+
+      # show all letters of alphabet when random_seven is removed:
+      # random_rest = [char for char in alphabet if char not in random_seven]
+      # print(random_rest)
+      
+      words_results = []
+
+      conn = sqlite3.connect('api_results.db')
+      c = conn.cursor()
+
+      # append only the words from the database that can be constructed using no letter that is contained in random_rest:
+      database_query = c.execute("SELECT word FROM api_results")
+      for row in database_query:
+          word_letters = set(row[0])
+          if word_letters.issubset(set(random_seven)):
+              words_results.append(row[0])
+
+      print(words_results)
+
+      wordsDay = words_results
+      conn.close()
+      
+      if term in words_results:
+        print(term)
+        print(words_results)
+    
+        print("yes!!!")
+      else:
+        print("no!!!")
+      
+      return render_template('index.html', random_seven=random_seven, wordsDay=wordsDay, b1=b1, b2=b2, b3=b3, b4=b4, b5=b5, b6=b6, b7=b7)
+
 
 @app.route('/api_call')
 def api_call():
     try:
-        # API call code
-        url = 'https://urban-dictionary7.p.rapidapi.com/v0/random'
-        headers = {
-          "X-RapidAPI-Key": "95d2126b2emsha1b4c9955aaf227p13b388jsnbdc54fbaecce",
-          "X-RapidAPI-Host": "urban-dictionary7.p.rapidapi.com"
-        }
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()  # Check for any HTTP errors
+          all_words = []
+          number_of_words = 300
 
-        api_result = response.json()
-        print(response.json())
+          # Get number_of_words = x  from the database:
+          while len(all_words) < number_of_words:
 
-        # Insert the API result into the database
-        insert_api_result(api_result)
+            # API call code
+            url = 'https://urban-dictionary7.p.rapidapi.com/v0/random'
+            headers = {
+              "X-RapidAPI-Key": "95d2126b2emsha1b4c9955aaf227p13b388jsnbdc54fbaecce",
+              "X-RapidAPI-Host": "urban-dictionary7.p.rapidapi.com"
+            }
+            response = requests.get(url, headers=headers)
+            response.raise_for_status()  # Check for any HTTP errors
 
-        return 'API call executed successfully'
+            api_result = response.json()
+
+            # Check if the word contains whitespace,or other non letters
+            word = api_result['list'][0]['word'].upper()
+
+            if not any([char in word for char in [' ', '/', '-', '—', '+', '#', '=', '&', '@', '$', '\'']]) and len(word)>3:
+                all_words.append(word)
+
+                # Insert the API result into the database
+                insert_api_result(api_result)
+
+          print(all_words)
+          return 'API call executed successfully'
+    
     except requests.exceptions.RequestException as e:
         print(f"An error occurred during the API call: {str(e)}")
         return 'API call failed'
@@ -75,7 +159,6 @@ def insert_word(term):
     conn.close()
 
 
-
 def create_api_results_database():
     conn = sqlite3.connect('api_results.db')
     c = conn.cursor()
@@ -94,12 +177,13 @@ def create_api_results_database():
     conn.commit()
     conn.close()
 
+
 def insert_api_result(api_result):
     conn = sqlite3.connect('api_results.db')
     c = conn.cursor()
 
     # Extract the relevant data from the API result
-    word = api_result['list'][0]['word']
+    word = api_result['list'][0]['word'].upper()
     definition = api_result['list'][0]['definition']
     example = api_result['list'][0]['example']
     permalink = api_result['list'][0]['permalink']
@@ -119,11 +203,21 @@ def insert_api_result(api_result):
     conn.commit()
     conn.close()
 
+def check_user_input_in_api_results(term):
+    conn = sqlite3.connect('api_results.db')
+    c = conn.cursor()
+    
+    # check if term is in api-results database:
 
-if __name__ == '__main__':
+    c.execute("SELECT * FROM api_results WHERE word=?", (term,))
 
+    result = c.fetchone()
 
+    if result:
+      print(f"The word '{term}' exists in the table.")
+    else:
+      print(f"{term} is not a valid word.")
 
-    # Create the API results database
-    create_api_results_database()
+    conn.close()
+
 

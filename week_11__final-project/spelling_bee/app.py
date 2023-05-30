@@ -15,16 +15,16 @@ def index():
     create_wordlist_database()
     create_api_results_database()
 
-    if 'random_seven' not in session:
+    # if 'random_seven' not in session:
         # Generate random_seven if it's not already in the session
-        alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
-                    'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-                    'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+                'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+                'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
-        random_seven = random.sample(alphabet, 7)
-        session['random_seven'] = random_seven
-    else:
-        random_seven = session['random_seven']  # Retrieve random_seven from the session
+    random_seven = random.sample(alphabet, 7)
+    #     session['random_seven'] = random_seven
+    # else:
+    #     random_seven = session['random_seven']  # Retrieve random_seven from the session
 
 
     if request.method == 'POST':
@@ -53,14 +53,6 @@ def index():
       b6 = random_seven[5]
       b7 = random_seven[6]
 
-      # some_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
-      # some_word = 'ABCD'
-      # # check if some_word contains only letters from some_letters:
-      # if all([char in some_letters for char in some_word]):
-
-      # show all letters of alphabet when random_seven is removed:
-      # random_rest = [char for char in alphabet if char not in random_seven]
-      # print(random_rest)
       
       words_results = []
 
@@ -86,8 +78,23 @@ def index():
         print("yes!!!")
       else:
         print("no!!!")
+
+      # get the definition, example, permalink from the database:
+      conn = sqlite3.connect('api_results.db')
+      c = conn.cursor()
+
+      c.execute("SELECT definition FROM api_results WHERE word=?", (term,))
+      definition = c.fetchone()
+
+      c.execute("SELECT example FROM api_results WHERE word=?", (term,))
+      example = c.fetchone()
+
+      c.execute("SELECT permalink FROM api_results WHERE word=?", (term,))
+      permalink = c.fetchone()
+
+      conn.close()
       
-      return render_template('index.html', random_seven=random_seven, wordsDay=wordsDay, b1=b1, b2=b2, b3=b3, b4=b4, b5=b5, b6=b6, b7=b7)
+      return render_template('index.html', random_seven=random_seven, wordsDay=wordsDay, b1=b1, b2=b2, b3=b3, b4=b4, b5=b5, b6=b6, b7=b7, definition=definition, example=example, permalink=permalink, term=term)
 
 
 @app.route('/api_call')
@@ -113,7 +120,7 @@ def api_call():
             # Check if the word contains whitespace,or other non letters
             word = api_result['list'][0]['word'].upper()
 
-            if not any([char in word for char in [' ', '/', '-', '—', '+', '#', '=', '&', '@', '$', '\'']]) and len(word)>3:
+            if not any([char in word for char in [' ', '/', '-', '—', '+', '#', '=', '&', '@', '$', '\'', ';']]) and len(word)>3:
                 all_words.append(word)
 
                 # Insert the API result into the database

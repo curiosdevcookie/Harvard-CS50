@@ -4,6 +4,8 @@ import sqlite3
 from flask import Flask, render_template, request, session, redirect
 import requests
 
+import config
+
 app = Flask(__name__)
 app.secret_key = 'secret key'
 
@@ -100,8 +102,8 @@ def api_call():
             # API call code
             url = 'https://urban-dictionary7.p.rapidapi.com/v0/random'
             headers = {
-              "X-RapidAPI-Key": "95d2126b2emsha1b4c9955aaf227p13b388jsnbdc54fbaecce",
-              "X-RapidAPI-Host": "urban-dictionary7.p.rapidapi.com"
+              "X-RapidAPI-Key":  config.api_key,
+              "X-RapidAPI-Host": config.host
             }
             response = requests.get(url, headers=headers)
             response.raise_for_status()  # Check for any HTTP errors

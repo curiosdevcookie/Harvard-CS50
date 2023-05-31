@@ -9,28 +9,16 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
   <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
   <script src="{{ url_for('static', filename='js/index.js') }}" type='module'></script>
-  <!-- <script src="{{ url_for('static', filename='js/API.js') }}"></script> -->
   <!-- <script src='https://github.com/curiosdevcooki/curiosdevcookie-portfolio/blob/d05042ec67f95d5dee8816d600bcec13286b3f2b/components/footer/cdc-footer.js' type='module'></script> -->
 
 </head>
 <body>
   <header>
     <h1>Urban Spelling Bee</h1>
-    <button onclick="executeAPICall();">Execute API Call</button>
-
-    <h3>Letters of the Day: {{ lettersDay }}</h3>
+    
+    <h3>Letters of the Day: {{ random_seven }}</h3>
 
     <h3>Words of the Day: {{ wordsDay }}</h3>
-    
-    <script>
-        function executeAPICall() {
-            // Send a GET request to the /api_call route
-            fetch('/api_call')
-                .then(response => response.text())
-                .then(data => console.log(data))
-                .catch(err => console.error(err));
-        }
-    </script>
   </header>
 
   <main>
@@ -121,16 +109,10 @@
         <button id='submit' type='submit'>Try</button>
     </form>
 
-    <section id='definition-example-section'>
+    <section id='definition-section'>
       <h2>Definition</h2>
       <label for='definition-area'></label>
       <textarea id='definition-area' name='definition-area' title='Definition' readonly>{{ definition  }}</textarea>
-      
-      <!-- <h2>Example</h2>
-      <label for='example-area'></label>
-      <textarea id='example-area' name='example-area' title='Example' readonly>{{ example }}</textarea>
-       -->
-      <p>Source: <span id='source'>{{ permalink }}</span></p>
     </section>
 
     <form action='/regenerate' method='post'>

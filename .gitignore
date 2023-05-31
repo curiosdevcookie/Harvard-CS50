@@ -4,3 +4,4 @@
 .vscode/
 /lectures
 week_11__final-project/spelling_bee/config.py
+dictionary.db

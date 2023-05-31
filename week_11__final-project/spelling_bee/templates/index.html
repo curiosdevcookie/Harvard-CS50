@@ -18,7 +18,7 @@
     
     <h3>Letters of the Day: {{ random_seven }}</h3>
 
-    <h3>Words of the Day: {{ wordsDay }}</h3>
+    <h3>Words of the Day: {{ words_results }}</h3>
   </header>
 
   <main>
@@ -105,14 +105,14 @@
     <form action="/" method="post">
         <h2>User Input</h2>
         <button id='delete' type='button'>Delete Letter</button>
-        <input id='input-word' type='text' minlength='5' name='term' placeholder='Look, your word goes in here'>
+        <input id='input-word' type='text' name='term' placeholder='Look, your word goes in here'>
         <button id='submit' type='submit'>Try</button>
     </form>
 
     <section id='definition-section'>
       <h2>Definition</h2>
       <label for='definition-area'></label>
-      <textarea id='definition-area' name='definition-area' title='Definition' readonly>{{ definition  }}</textarea>
+      <textarea id='definition-area' name='definition-area' title='Definition' readonly>{{ definition }}</textarea>
     </section>
 
     <form action='/regenerate' method='post'>
@@ -122,10 +122,9 @@
     <section id='word-list'>
       <h2>Word List</h2>
       <ul id='word-list-ul'>
-        <!-- {% for term in terms %}
-          <li>{{ term }}</li>
-        {% endfor %} -->
-        <li>{{ term }}</li>
+        {% for word in words %}
+          <li>{{ word }}</li>
+        {% endfor %}
       </ul>
     </section>
 

@@ -15,16 +15,10 @@ def index():
     create_wordlist_database()
     create_api_results_database()
 
-    # if 'random_seven' not in session:
-        # Generate random_seven if it's not already in the session
-    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
-                'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-                'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-
-    random_seven = random.sample(alphabet, 7)
-    #     session['random_seven'] = random_seven
-    # else:
-    #     random_seven = session['random_seven']  # Retrieve random_seven from the session
+    if 'random_seven' not in session:
+      generate_random_seven()
+    else:
+      random_seven = session['random_seven']  # Retrieve random_seven from the session
 
 
     if request.method == 'POST':
@@ -32,18 +26,11 @@ def index():
       # insert a word
       insert_word(term)
       check_user_input_in_api_results(term)
-      session['term'] = term
 
       return redirect("/")
     
 
     elif request.method == 'GET':
-
-      if 'term' in session:
-            term = session['term']  # Retrieve the term from the session
-            print(f"{term} was retrieved from the session.")
-      else:
-            term = None
 
       b1 = random_seven[0]
       b2 = random_seven[1]
@@ -56,31 +43,31 @@ def index():
       
       words_results = []
 
-      conn = sqlite3.connect('api_results.db')
+      conn = sqlite3.connect('dictionary.db')
       c = conn.cursor()
 
       # append only the words from the database that can be constructed using no letter that is contained in random_rest:
-      database_query = c.execute("SELECT word FROM api_results")
+      database_query = c.execute("SELECT word FROM entries")
       for row in database_query:
           word_letters = set(row[0])
           if word_letters.issubset(set(random_seven)):
               words_results.append(row[0])
 
-      print(words_results)
+      session['words_results'] = words_results
+
+      print(f"Possible words are {words_results}")
 
       wordsDay = words_results
-      conn.close()
       
+      term = request.form.get("term")
       if term in words_results:
-        print(term)
-        print(words_results)
-    
         print("yes!!!")
       else:
         print("no!!!")
+      conn.close()
 
       # get the definition, example, permalink from the database:
-      conn = sqlite3.connect('api_results.db')
+      conn = sqlite3.connect('dictionary.db')
       c = conn.cursor()
 
       c.execute("SELECT definition FROM api_results WHERE word=?", (term,))
@@ -169,7 +156,7 @@ def insert_word(term):
 
 
 def create_api_results_database():
-    conn = sqlite3.connect('api_results.db')
+    conn = sqlite3.connect('dictionary.db')
     c = conn.cursor()
 
     # Create a table if it doesn't exist
@@ -188,7 +175,7 @@ def create_api_results_database():
 
 
 def insert_api_result(api_result):
-    conn = sqlite3.connect('api_results.db')
+    conn = sqlite3.connect('dictionary.db')
     c = conn.cursor()
 
     # Extract the relevant data from the API result
@@ -213,7 +200,7 @@ def insert_api_result(api_result):
     conn.close()
 
 def check_user_input_in_api_results(term):
-    conn = sqlite3.connect('api_results.db')
+    conn = sqlite3.connect('dictionary.db')
     c = conn.cursor()
     
     # check if term is in api-results database:
@@ -229,4 +216,17 @@ def check_user_input_in_api_results(term):
 
     conn.close()
 
+def generate_random_seven():
+        # Generate random_seven if it's not already in the session
+    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+                'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+                'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
+    random_seven = random.sample(alphabet, 7)
+    session['random_seven'] = random_seven
+
+
+@app.route('/regenerate', methods=['POST'])
+def generate():
+  generate_random_seven()
+  return redirect("/")

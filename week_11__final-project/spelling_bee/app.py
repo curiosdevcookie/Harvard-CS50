@@ -2,9 +2,9 @@ import random
 import sqlite3
 
 from flask import Flask, render_template, request, session, redirect
-import requests
+import string
 
-import config
+
 
 app = Flask(__name__)
 app.secret_key = 'secret key'
@@ -22,18 +22,29 @@ def index():
 
     if request.method == 'POST':
       term = request.form.get("term")
-      # insert a word
-      insert_word(term)
-      check_user_input_in_entries(term)
+      session['term'] = term
+      print(f"term is {term}")
 
+      words_results = session.get('words_results')
+      if term not in words_results:
+        print(f"\n word {term} is not found!\n")
+        return redirect("/")
+      else:
+        print(f"\n word {term} was found!\n")
+        insert_word(term)
+        get_definition(term)
+        get_word_from_wordlist(term)
+
+      session['definition'] = get_definition(term)
+      session['word'] = get_word_from_wordlist(term)
       return redirect("/")
     
 
     elif request.method == 'GET':
 
       if random_seven is None:
-            generate_random_seven()
-            random_seven = session['random_seven']
+        generate_random_seven()
+        random_seven = session['random_seven']
 
       b1 = random_seven[0]
       b2 = random_seven[1]
@@ -43,43 +54,38 @@ def index():
       b6 = random_seven[5]
       b7 = random_seven[6]
 
+      words_results = []
+
       conn = sqlite3.connect('dictionary.db')
       c = conn.cursor()
-      words_results = []
+
       # append only the words from the database that can be constructed using no letter that is contained in random_rest:
       database_query = c.execute("SELECT word FROM entries")
       for row in database_query:
           try:
               word_letters = set(row[0])
-              print(word_letters)
-              if word_letters.issubset(set(random_seven)) and len(row[0]) >= 10:
-                  words_results.append(row[0])
+              if word_letters.issubset(set(random_seven)):
+                words_results.append(row[0])
           except TypeError:
-              print(f"Error processing row: {row}")
-
+            print(f"Error processing row: {row}")
       session['words_results'] = words_results
-
-      print(f"Possible words are {words_results}")
-
-      wordsDay = words_results
-      
-      term = request.form.get("term")
-      if term in words_results:
-        print("yes!!!")
-      else:
-        print("no!!!")
       conn.close()
 
-      # get the definition from the database:
+      words = []
       conn = sqlite3.connect('dictionary.db')
       c = conn.cursor()
 
-      c.execute("SELECT definition FROM entries WHERE word=?", (term,))
-      definition = c.fetchone()
+      c.execute("SELECT word FROM wordlist")
+      word_rows = c.fetchall()
+
+      for row in word_rows:
+          word = get_word_from_wordlist(row[0])
+          if word:
+              words.append(word)
 
       conn.close()
-      
-      return render_template('index.html', random_seven=random_seven, wordsDay=wordsDay, b1=b1, b2=b2, b3=b3, b4=b4, b5=b5, b6=b6, b7=b7, definition=definition, term=term)
+
+      return render_template('index.html', random_seven=random_seven, words_results=words_results, b1=b1, b2=b2, b3=b3, b4=b4, b5=b5, b6=b6, b7=b7, definition=session.get('definition'), word=session.get('word'), words=words)
 
 def create_wordlist_table():
     conn = sqlite3.connect('dictionary.db')
@@ -102,9 +108,8 @@ def insert_word(term):
      # Check if the word already exists in the table
     c.execute("SELECT * FROM wordlist WHERE word=?", (term,))
     existing_row = c.fetchone()
-
     if existing_row:
-        print(f"The word '{term}' already exists in the database.")
+      print(f"The word '{term}' already exists in the database.")
     else:
       # Insert a word into the table
       c.execute('INSERT INTO wordlist (word) VALUES (?)', (term,))
@@ -112,38 +117,69 @@ def insert_word(term):
     conn.commit()
     conn.close()
 
-    conn.commit()
-    conn.close()
-
-
-def check_user_input_in_entries(term):
-    conn = sqlite3.connect('dictionary.db')
-    c = conn.cursor()
-    
-    # check if term is in api-results database:
-
-    c.execute("SELECT * FROM entries WHERE word=?", (term,))
-
-    result = c.fetchone()
-
-    if result:
-      print(f"The word '{term}' exists in the table.")
-    else:
-      print(f"{term} is not a valid word.")
-
-    conn.close()
-
 def generate_random_seven():
+    vowels = ['A', 'E', 'I', 'O', 'U']
         # Generate random_seven if it's not already in the session
-    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
-                'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-                'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    alphabet = string.ascii_uppercase
 
     random_seven = random.sample(alphabet, 7)
+    # check if there is at least two vowels in the random_seven:
+    if len(set(random_seven).intersection(vowels)) < 2:
+        return generate_random_seven()
+    print(f"random_seven is {random_seven}")
+
+    # random_rest = list(set(alphabet) - set(random_seven))
+    # print(f"random_rest is {random_rest}")
+    
     session['random_seven'] = random_seven
+    # session['random_rest'] = random_rest
 
 
 @app.route('/regenerate', methods=['POST'])
 def generate():
   generate_random_seven()
+  delete_all_words()
   return redirect("/")
+
+
+ # get the definition of term from the table entries if term is in words_results:
+def get_definition(term):
+  print(f"term is {term}")
+    # get the definition from the database:
+  conn = sqlite3.connect('dictionary.db')
+  c = conn.cursor()
+
+  c.execute("SELECT definition FROM entries WHERE word=?", (term,))
+  definition = c.fetchone()
+  print(f"definition is {definition}")
+
+
+  conn.close()
+  return definition
+
+def get_word_from_wordlist(term):
+
+  print(f"term is {term}")
+  conn = sqlite3.connect('dictionary.db')
+  c = conn.cursor()
+
+  c.execute("SELECT word FROM wordlist WHERE word=?", (term,))
+  word = c.fetchone()
+  if word:
+    # slice the word from the tuple:
+    word = word[0]
+  else:
+     word = None
+
+  conn.close()
+
+  return word
+
+def delete_all_words():
+    conn = sqlite3.connect('dictionary.db')
+    c = conn.cursor()
+
+    c.execute("DELETE FROM wordlist")
+
+    conn.commit()
+    conn.close()

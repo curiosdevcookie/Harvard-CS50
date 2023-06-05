@@ -42,3 +42,11 @@ function deleteLetter() {
     textarea.style.height = `${textarea.scrollHeight / 10}rem`;
   });
 }());
+
+// (function checkNote() {
+
+//   if (document.getElementById('b1-note')) {
+//     document.getElementById('b1-note').style.animationPlayState = 'running';
+//   }
+// }
+// )();

@@ -1,7 +1,7 @@
 import random
 import sqlite3
 
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, flash, render_template, request, session, redirect
 import string
 
 
@@ -23,14 +23,16 @@ def index():
     if request.method == 'POST':
       term = request.form.get("term")
       session['term'] = term
-      print(f"term is {term}")
 
       words_results = session.get('words_results')
       if term not in words_results:
-        print(f"\n word {term} is not found!\n")
+        flash(f"{term} was not found in the dictionary 🤔", "error")
+        return redirect("/")
+      if random_seven[0] not in term:
+        flash(f"Word must contain center letter ' {random_seven[0]} '☝🏼", "error")
         return redirect("/")
       else:
-        print(f"\n word {term} was found!\n")
+        flash(f"The word {term} was found 🤘", "success")
         insert_word(term)
         get_definition(term)
         get_word_from_wordlist(term)
@@ -53,6 +55,8 @@ def index():
       b5 = random_seven[4]
       b6 = random_seven[5]
       b7 = random_seven[6]
+
+      # b1 is required to be in the word:
 
       words_results = []
 

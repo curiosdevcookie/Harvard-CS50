@@ -23,3 +23,22 @@ function deleteLetter() {
   const input = document.getElementById('input-word');
   input.value = input.value.slice(0, -1);
 }
+
+
+// STYLE
+
+(function resizeTextareas() {
+  const textareas = document.querySelectorAll('textarea');
+  console.log(textareas);
+  textareas.forEach((textarea) => {
+    /* Add event listener to each textarea */
+    textarea.addEventListener('input', (event) => {
+      const target = event.target;
+      target.style.height = 'auto';
+      target.style.height = `${target.scrollHeight / 10}rem`;
+    }
+    );
+    /* Initial resize */
+    textarea.style.height = `${textarea.scrollHeight / 10}rem`;
+  });
+}());

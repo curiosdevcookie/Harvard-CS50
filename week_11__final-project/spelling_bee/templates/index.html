@@ -15,10 +15,12 @@
 <body>
   <header>
     <h1>Urban Spelling Bee</h1>
-    
-    <h3>Letters of the Day: {{ random_seven }}</h3>
+    <form action='/regenerate' method='post'>
+      <button type='submit'>Regenerate</button>
+    </form>
+    <!-- <h3>Letters of the Day: {{ random_seven }}</h3>
 
-    <h3>Words of the Day: {{ words_results }}</h3>
+    <h3>Words of the Day: {{ words_results }}</h3> -->
   </header>
 
   <main>
@@ -31,7 +33,7 @@
             <button class='letter' id='b5'>E</button>
             <button class='letter' id='b6'>P</button>
             <button class='letter' id='b7'>R</button> -->
-            
+    
       <svg version="1.1" id="comb" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         viewBox="0 0 727.3 833.6" style="enable-background:new 0 0 727.3 833.6;" xml:space="preserve">
       <style type="text/css">
@@ -102,10 +104,10 @@
       </svg>
     </section>
 
-    <form action="/" method="post">
+    <form id=input action="/" method="post">
         <h2>User Input</h2>
         <button id='delete' type='button'>Delete Letter</button>
-        <input id='input-word' type='text' name='term' placeholder='Look, your word goes in here'>
+        <input id='input-word' type='text' name='term' minlength='4' required placeholder='Look, your word goes in here'>
         <button id='submit' type='submit'>Try</button>
     </form>
 
@@ -115,9 +117,7 @@
       <textarea id='definition-area' name='definition-area' title='Definition' readonly>{{ definition }}</textarea>
     </section>
 
-    <form action='/regenerate' method='post'>
-      <button type='submit'>Regenerate</button>
-    </form>
+
 
     <section id='word-list'>
       <h2>Word List</h2>

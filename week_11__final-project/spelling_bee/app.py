@@ -139,6 +139,7 @@ def generate_random_seven():
 def generate():
   generate_random_seven()
   delete_all_words()
+  clear_session_definition()
   return redirect("/")
 
 
@@ -151,9 +152,14 @@ def get_definition(term):
 
   c.execute("SELECT definition FROM entries WHERE word=?", (term,))
   definition = c.fetchone()
-  print(f"definition is {definition}")
-
-
+  if definition:
+    # slice the definition from the tuple:
+    definition = definition[0]
+    # slice the first 2 characters from the definition if it starts with "1.":
+    if definition.startswith("1."):
+      definition = definition[2:]
+  else:
+      definition = None
   conn.close()
   return definition
 
@@ -172,7 +178,6 @@ def get_word_from_wordlist(term):
      word = None
 
   conn.close()
-
   return word
 
 def delete_all_words():
@@ -183,3 +188,6 @@ def delete_all_words():
 
     conn.commit()
     conn.close()
+
+def clear_session_definition():
+    session['definition'] = None

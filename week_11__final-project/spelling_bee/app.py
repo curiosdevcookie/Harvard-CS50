@@ -4,11 +4,10 @@ import sqlite3
 from flask import Flask, flash, render_template, request, session, redirect
 import string
 
-
+PATH_TO_DATABASE = 'dictionary.db'
 
 app = Flask(__name__)
 app.secret_key = 'secret key'
-
 
 @app.route('/', methods=['GET'])
 def index_get():
@@ -34,7 +33,7 @@ def index_get():
 
     words_results = []
 
-    conn = sqlite3.connect('dictionary.db')
+    conn = sqlite3.connect(PATH_TO_DATABASE)
     c = conn.cursor()
 
     # append only the words from the database that can be constructed using no letter that is contained in random_rest:
@@ -50,7 +49,7 @@ def index_get():
     conn.close()
 
     words = []
-    conn = sqlite3.connect('dictionary.db')
+    conn = sqlite3.connect(PATH_TO_DATABASE)
     c = conn.cursor()
 
     c.execute("SELECT word FROM wordlist")
@@ -67,9 +66,8 @@ def index_get():
 
 @app.route('/', methods=['POST'])
 def index_post():
+    random_seven = session.get('random_seven')
     
-    random_seven = session.get('random_seven')  # Retrieve random_seven from the session
-
     term = request.form.get("term")
     session['term'] = term
 
@@ -98,7 +96,7 @@ def index_post():
 
 
 def create_wordlist_table():
-    conn = sqlite3.connect('dictionary.db')
+    conn = sqlite3.connect(PATH_TO_DATABASE)
     c = conn.cursor()
 
     # Create a table if it doesn't exist
@@ -112,7 +110,7 @@ def create_wordlist_table():
     conn.close()
 
 def insert_word(term):
-    conn = sqlite3.connect('dictionary.db')
+    conn = sqlite3.connect(PATH_TO_DATABASE)
     c = conn.cursor()
 
     # Check if the word already exists in the table
@@ -159,7 +157,7 @@ def generate():
 def get_definition(term):
     print(f"term is {term}")
     # get the definition from the database:
-    conn = sqlite3.connect('dictionary.db')
+    conn = sqlite3.connect(PATH_TO_DATABASE)
     c = conn.cursor()
 
     c.execute("SELECT definition FROM entries WHERE word=?", (term,))
@@ -178,7 +176,7 @@ def get_definition(term):
 def get_word_from_wordlist(term):
 
     print(f"term is {term}")
-    conn = sqlite3.connect('dictionary.db')
+    conn = sqlite3.connect(PATH_TO_DATABASE)
     c = conn.cursor()
 
     c.execute("SELECT word FROM wordlist WHERE word=?", (term,))
@@ -193,7 +191,7 @@ def get_word_from_wordlist(term):
     return word
 
 def delete_all_words():
-    conn = sqlite3.connect('dictionary.db')
+    conn = sqlite3.connect(PATH_TO_DATABASE)
     c = conn.cursor()
 
     c.execute("DELETE FROM wordlist")

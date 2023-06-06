@@ -74,11 +74,18 @@ def index_post():
     session['term'] = term
 
     words_results = session.get('words_results')
+    if len(term) < 4:
+        flash(f"Word must be at least 4 letters long 😬", "error")
+        return redirect("/")
     if random_seven[0] not in term:
         flash(f"Word must contain center letter ' {random_seven[0]} '☝🏼", "error")
         return redirect("/")
     if term not in words_results:
         flash(f"{term} was not found in the dictionary 🤔", "error")
+        return redirect("/")
+    # if term was already found:
+    if get_word_from_wordlist(term):
+        flash(f"The word {term} was already found ✅", "error")
         return redirect("/")
     flash(f"The word {term} was found 🤘", "success")
     insert_word(term)
@@ -88,7 +95,7 @@ def index_post():
     session['definition'] = get_definition(term)
     session['word'] = get_word_from_wordlist(term)
     return redirect("/")
-    
+
 
 def create_wordlist_table():
     conn = sqlite3.connect('dictionary.db')

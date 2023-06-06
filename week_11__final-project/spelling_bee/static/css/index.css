@@ -1,5 +1,6 @@
  @import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
 
+ /*RESETS*/
 :root{
   margin: 0;
   padding: 0;
@@ -8,13 +9,22 @@
 
   --font-headings:Merriweather;
   --font-cursive: 'Helvetica';
-  }
 
-body{
-  background-color: #FFF545;
-  text-align: center;
+  --color-graphite: #080808;
+  --color-yellow: #f9d71c; 
+  /* cda434 */
 }
 
+/*GENERAL STYLING*/
+body {
+  font-family: var(--font-headings);
+  font-size: calc(0.3rem + 1vw);
+  background-color: var(--color-yellow);
+  color: var(--color-graphite);
+  text-align: center;
+  }
+
+/* Grid */
 main {
   display: grid;
   grid-template-areas: 
@@ -42,11 +52,13 @@ main {
 #word-list{
   grid-area: list;
   }
+
+/* List styling */
 #word-list-ul{
   font-family: var(--font-cursive);
   font-style: italic;
-  font-size: calc(0.3rem + 1vw);
   list-style-type: none;
+  padding: 0;
 }
 
 #definition-area{
@@ -58,15 +70,10 @@ main {
   }
   
 
-/* #input-word{
-  background-color: darkblue;
-  color: white;
-  pointer-events: none;
-  }
+#input-word:focus{
+  outline: none;
+}
 
-#input-word:invalid{
-  background-color: red;
-  } */
 
 h1, h2, h3, h4, h5, h6{
   font-family: var(--font-headings);
@@ -75,6 +82,7 @@ h1, h2, h3, h4, h5, h6{
 }
 
 
+/*SVG styling*/
 svg{
   width: 20vw;
   height: auto;
@@ -84,8 +92,32 @@ svg{
     cursor: pointer;
   }
 
+  #poly7:hover{
+    fill: var(--color-yellow);
+    color: var(--color-graphite);
+  }
+
+  svg > g > text{
+    font-size: calc(0.3rem + 1vw);
+    fill: var(--color-graphite);
+    cursor: pointer;
+  }
+
+    svg > g > text:hover{
+      fill: var(--color-yellow);
+    }
+
+  
+
+  .st3:hover{
+    fill: var(--color-yellow);
+  }
+
+
+
   #_x3C_PolygonBG_x3E_{
     cursor: none;
   }
+
 
 

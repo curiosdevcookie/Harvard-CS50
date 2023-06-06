@@ -10,6 +10,16 @@ To install the game, you need to install the required packages via your terminal
 pip install -r requirements.txt
 ```
 
+## Set up the database
+
+To install the database, you need to run the following commands in your terminal:
+
+```bash
+wget "https://www.dropbox.com/s/tiqdlgzbo40ak8g/dictionary.db" -O dictionary.db
+```
+
+In `app.py`, set the variable `PATH_TO_DATABASE` to the path to the database.
+
 ## Run the app
 
 To run the app, you need to run the following command in your terminal:

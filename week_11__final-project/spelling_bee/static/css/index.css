@@ -1,17 +1,17 @@
- @import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather &display=swap');
 
- /*RESETS*/
-:root{
+/*RESETS*/:root
+{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-size: 62.5%;
 
-  --font-headings:Merriweather;
+  --font-headings: Merriweather;
   --font-cursive: 'Helvetica';
 
   --color-graphite: #080808;
-  --color-yellow: #f9d71c; 
+  --color-yellow: #f9d71c;
   /* cda434 */
 }
 
@@ -22,60 +22,62 @@ body {
   background-color: var(--color-yellow);
   color: var(--color-graphite);
   text-align: center;
-  }
+}
 
 /* Grid */
 main {
   display: grid;
-  grid-template-areas: 
-    "comb definition"
-    "comb list"
-    "input list";
+  grid-template-areas: "comb definition" "comb list" "input list";
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   gap: calc(1rem + 1vw);
   padding: 1rem;
-  }
+}
 
-#circle-comb{
+#circle-comb {
   grid-area: comb;
-  }
+}
 
-#input{
+#input {
   grid-area: input;
-  }
+}
 
-#definition-section{
+#definition-section {
   grid-area: definition;
-  }
+}
 
-#word-list{
+#word-list {
   grid-area: list;
-  }
+}
 
 /* List styling */
-#word-list-ul{
+#word-list-ul {
   font-family: var(--font-cursive);
   font-style: italic;
   list-style-type: none;
   padding: 0;
 }
 
-#definition-area{
+#definition-area {
   font-family: var(--font-cursive);
   font-style: italic;
   font-size: calc(0.3rem + 1vw);
   resize: none;
   overflow-y: hidden;
-  }
-  
+}
 
-#input-word:focus{
+
+#input-word:focus {
   outline: none;
 }
 
 
-h1, h2, h3, h4, h5, h6{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-headings);
   text-transform: capitalize;
   padding-top: 3rem;
@@ -83,41 +85,104 @@ h1, h2, h3, h4, h5, h6{
 
 
 /*SVG styling*/
-svg{
+svg {
   width: 20vw;
   height: auto;
+}
+
+svg > g {
+  cursor: pointer;
+}
+
+#poly7:hover {
+  fill: var(--color-yellow);
+}
+
+svg > g > text {
+  font-size: calc(0.3rem + 1vw);
+  fill: var(--color-graphite);
+  cursor: pointer;
+}
+
+svg > g > text:hover {
+  fill: var(--color-yellow);
+}
+
+.st3:hover {
+  fill: var(--color-yellow);
+}
+
+#honeycomb {
+  cursor: none;
+}
+
+#b1:hover {
+  color: var(--color-graphite);
+}
+
+
+/* Bee */
+#beeOne {
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  animation: fly 13s, jiggle 1s infinite;
+}
+
+/* Animate Bee */
+
+@keyframes fly {
+  0% {
+    top: 30%;
+    right: -20%;
   }
 
-  svg > g{
-    cursor: pointer;
+  20% {
+    top: 20%;
+    right: 5%;
   }
 
-  #poly7:hover{
-    fill: var(--color-yellow);
-    color: var(--color-graphite);
+  40% {
+    top: 15%;
+    right: 10%;
   }
 
-  svg > g > text{
-    font-size: calc(0.3rem + 1vw);
-    fill: var(--color-graphite);
-    cursor: pointer;
+  60% {
+    top: 30%;
+    right: 35%;
   }
 
-    svg > g > text:hover{
-      fill: var(--color-yellow);
-    }
-
-  
-
-  .st3:hover{
-    fill: var(--color-yellow);
+  80% {
+    top: 60%;
+    right: 60%;
   }
 
+  100% {
+    top: 30%;
+    right: 100%;
+  }
+}
 
 
-  #_x3C_PolygonBG_x3E_{
-    cursor: none;
+/* Animate jiggling */
+@keyframes jiggle {
+  0% {
+    transform: rotate(0deg);
   }
 
+  25% {
+    transform: rotate(5deg);
+  }
 
+  50% {
+    transform: rotate(10deg);
+  }
 
+  75% {
+    transform: rotate(-5deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}

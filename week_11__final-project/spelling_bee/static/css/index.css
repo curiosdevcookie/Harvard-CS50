@@ -21,7 +21,6 @@
 
   --color-graphite: #080808;
   --color-yellow: #f9d71c;
-  /* cda434 */
 }
 
 /*GENERAL STYLING*/
@@ -32,14 +31,54 @@ body {
   color: var(--color-graphite);
 }
 
-/* Grid */
+/* Grids */
+
+body {
+  display: grid;
+  grid-template-areas: "header" "main" "footer";
+  grid-template-columns: 1fr;
+  grid-template-rows: 10rem 1fr 10rem;
+  gap: 3rem;
+}
+
+/* @media screen and(max-width: 768px) {
+  body {
+    display: grid;
+    grid-template-areas: "header" "main" "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: 10rem 1fr 10rem;
+  }
+} */
+
+header {
+  grid-area: header;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  grid-area: main;
+}
+
+footer {
+  grid-area: footer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 main {
   display: grid;
-  grid-template-areas: "list comb input" "list comb definition";
+  grid-template-areas: "list comb input" "list comb definition" "cdc-footer cdc-footer .";
+
+
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 20rem 20rem;
-  gap: calc(1rem + 1vw);
-  padding: 1rem;
+  grid-template-rows: 15rem 1fr;
+  row-gap: calc(1rem + 1vw);
+  column-gap: calc(3rem + 1vw);
+  padding: 0 calc(3rem + 1vw);
+
 }
 
 /* @media screen and(max-width: 768px) {
@@ -67,6 +106,10 @@ main {
   grid-area: list;
 }
 
+cdc-footer {
+  grid-area: cdc-footer;
+}
+
 /* List styling */
 #word-list-ul {
   font-family: var(--font-handwriting);
@@ -86,14 +129,9 @@ h6 {
   text-transform: capitalize;
 }
 
-h1 {
-
-  text-align: center;
-  padding: 3rem 0;
-}
-
 
 /* Bee */
+
 #beeOne {
   position: absolute;
   top: -30%;
@@ -214,13 +252,31 @@ input {
   outline: none;
 }
 
-#definition-area {
+#definition-area,
+#word-list-ul {
   font-family: var(--font-handwriting);
   font-size: calc(0.3rem + 1vw);
   background-color: white;
+  padding: 0.5rem;
   border: 0.2rem solid var(--color-graphite);
   border-radius: 0.5rem;
   resize: none;
-  overflow-y: hidden;
   outline: none;
+}
+
+#definition-area {
+  max-height: 8vw;
+  overflow-y: scroll;
+}
+
+
+#word-list-ul {
+  min-height: 20vw;
+  column-count: 3;
+}
+
+
+/* Footer */
+cdc-footer {
+  font-size: calc(0.1rem + 1vw);
 }

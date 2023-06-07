@@ -171,6 +171,7 @@ def get_definition(term):
     else:
         definition = None
     conn.close()
+    print(definition)
     return definition
 
 def get_word_from_wordlist(term):

@@ -11,14 +11,14 @@
     <link rel='icon' href='{{ url_for('static', filename='images/favicon.ico' )
       }}' type='image/x-icon'>
     <script src='{{ url_for('static', filename='js/index.js' ) }}' type='module'></script>
-    <!-- <script src='https://github.com/curiosdevcooki/curiosdevcookie-portfolio/blob/d05042ec67f95d5dee8816d600bcec13286b3f2b/components/footer/cdc-footer.js' type='module'></script> -->
-
+    <script src='{{ url_for('static',
+      filename='js/components/cdc-footer.js' ) }}' type='module'></script>
   </head>
   <body>
     <header>
       <h1>Urban Spelling Bee</h1>
       <form action='/regenerate' method='post'>
-        <button type='submit'>Regenerate</button>
+        <button hidden type='submit'>Regenerate</button>
       </form>
       <!-- <h3>Letters of the Day: {{ random_seven }}</h3>
 
@@ -291,9 +291,15 @@
 
       <section id='definition-section'>
         <h2>Definition</h2>
-        <label for='definition-area'></label>
-        <textarea id='definition-area' name='definition-area' title='Definition'
-          readonly>{{ definition }}</textarea>
+        <p id='definition-area'>Lorem ipsum, dolor sit amet consectetur
+          adipisicing elit. Officiis, repudiandae enim impedit saepe, quasi
+          veritatis debitis velit expedita eligendi quisquam temporibus
+          similique cupiditate animi eaque porro. Voluptatibus exercitationem
+          qui consequuntur. Lorem ipsum, dolor sit amet consectetur
+          adipisicing elit. Officiis, repudiandae enim impedit saepe, quasi
+          veritatis debitis velit expedita eligendi quisquam temporibus
+          similique cupiditate animi eaque porro. Voluptatibus exercitationem
+          qui consequuntur.</p>
       </section>
 
       <section id='word-list'>
@@ -305,10 +311,12 @@
         </ul>
       </section>
 
+      <cdc-footer></cdc-footer>
+
     </main>
 
     <footer>
-      <!-- <cdc-footer></cdc-footer> -->
+      Some text
     </footer>
 
   </body>

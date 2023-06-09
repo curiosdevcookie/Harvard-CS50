@@ -35,6 +35,9 @@ The game is played as follows:
 1. Create as many words as you can by clicking on the given letters.
 2. The word must be at least 4 letters long.
 3. The word must contain the letter in the middle.
+4. All letters can be used multiple times.
+5. If the word is found in the dictionary, you're provided with its definition and the word is added to your word list.
+
 
 ## Final remarks
 

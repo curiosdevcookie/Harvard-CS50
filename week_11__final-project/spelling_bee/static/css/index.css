@@ -274,6 +274,31 @@ cdc-footer {
 }
 
 
+footer {
+  opacity: 0.3;
+  animation: slide-upwards 3s, change_opacity 3s;
+}
 
+@keyframes slide-upwards {
+  0% {
+    transform: translateY(100%);
+  }
 
+  100% {
+    transform: translateY(0%);
+  }
+}
 
+@keyframes change_opacity {
+  0% {
+    opacity: 0.1;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.3;
+  }
+}

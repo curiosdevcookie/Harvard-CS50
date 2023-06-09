@@ -38,17 +38,8 @@ body {
   grid-template-areas: "header" "main" "footer";
   grid-template-columns: 1fr;
   grid-template-rows: 10rem 1fr 10rem;
-  gap: 3rem;
+  gap: 5rem;
 }
-
-/* @media screen and(max-width: 768px) {
-  body {
-    display: grid;
-    grid-template-areas: "header" "main" "footer";
-    grid-template-columns: 1fr;
-    grid-template-rows: 10rem 1fr 10rem;
-  }
-} */
 
 header {
   grid-area: header;
@@ -63,16 +54,16 @@ main {
 
 footer {
   grid-area: footer;
-  display: flex;
+  text-align: center;
 }
 
 main {
   display: grid;
-  grid-template-areas: "list comb input" "list comb definition" "cdc-footer cdc-footer .";
+  grid-template-areas: "list comb input" "list comb definition" "instructions instructions .";
 
 
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 15rem 1fr;
+  grid-template-rows: 15rem 1fr 10rem;
   row-gap: calc(1rem + 1vw);
   column-gap: calc(3rem + 1vw);
   padding: 0 calc(3rem + 1vw);
@@ -104,8 +95,10 @@ main {
   grid-area: list;
 }
 
-cdc-footer {
-  grid-area: cdc-footer;
+#instructions {
+  grid-area: instructions;
+  display: flex;
+  justify-content: center;
 }
 
 /* List styling */
@@ -275,6 +268,12 @@ input {
 
 
 /* Footer */
+
 cdc-footer {
-  font-size: calc(0.1rem + 1vw);
+  font-size: calc(0.05rem + 1vw);
 }
+
+
+
+
+

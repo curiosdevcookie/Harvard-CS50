@@ -28,6 +28,14 @@ To run the app, you need to run the following command in your terminal:
 flask run
 ```
 
+## How to play
+
+The game is played as follows:
+
+1. Create as many words as you can by clicking on the given letters.
+2. The word must be at least 4 letters long.
+3. The word must contain the letter in the middle.
+
 ## Final remarks
 
 This is a work in progress. The game is playable, but there are still some bugs to fix and features to add.

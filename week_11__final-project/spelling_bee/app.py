@@ -166,8 +166,9 @@ def get_definition(term):
         # slice the definition from the tuple:
         definition = definition[0]
     # slice the first 2 characters from the definition if it starts with "1.":
-    if definition.startswith("1."):
-        definition = definition[2:]
+    # if definition.startswith("1."):
+    #     definition = definition[2:]
+
     else:
         definition = None
     conn.close()

@@ -36,7 +36,7 @@
             y2="61.154">
             <stop
               id="stop15924-76"
-              stop-color="#fff"
+              stop-color="var(--color-white)"
               offset="0" />
             <stop
               id="stop15926-1"
@@ -53,7 +53,7 @@
             y2="61.154">
             <stop
               id="stop15924-2"
-              stop-color="#fff"
+              stop-color="var(--color-white)"
               offset="0" />
             <stop
               id="stop15926-2"
@@ -181,7 +181,7 @@
         .st0{fill:var(--color-graphite);}
         .st1{fill:var(--color-graphite);}
         .st2{font-size:120px;}
-        .st3{fill:#FFFFFF;}
+        .st3{fill:var(--color-white);}
       </style>
         <g id='honeycomb' class='st0'>
           <polygon
@@ -267,11 +267,13 @@
       </svg>
 
       <form id=input action='/' method='post'>
-        <h2>User Input</h2>
-        <button id='delete' type='button'>Delete</button>
-        <input readonly id='input-word' type='text' name='term' minlength='4'
-        required placeholder='Your word goes in here'>
-        <button id='submit' type='submit'>Try</button>
+        <h2 id='input-heading'>User Input</h2>
+        <section id='input-section'>
+          <button id='delete' type='button'>Delete</button>
+          <input readonly id='input-word' type='text' name='term' minlength='4'
+          required placeholder='Your word goes in here'>
+          <button id='submit' type='submit'>Try</button>
+        </section>
       </form>
 
       {% with messages = get_flashed_messages() %}

@@ -1,9 +1,9 @@
 /* Handwriting */
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
 /* Industrial looking font */
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
 /* Urban looking font */
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
 
 
 /*RESETS*/:root
@@ -20,6 +20,7 @@
 
   --color-graphite: #080808;
   --color-yellow: #f9d71c;
+  --color-white: #faf9ef;
 }
 
 /*GENERAL STYLING*/
@@ -37,7 +38,7 @@ body {
   grid-template-areas: "header" "main" "footer";
   grid-template-columns: 1fr;
   grid-template-rows: 10rem 1fr 10rem;
-  row-gap: 5rem;
+  row-gap: 3rem;
 }
 
 @media (max-width: 768px) {
@@ -59,14 +60,14 @@ main {
 
 footer {
   grid-area: footer;
-  text-align: center;
+  text-align: right;
 }
 
 main {
   display: grid;
   grid-template-areas: "list comb input" "list comb definition" "list comb scores" "instructions instructions .";
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 15rem 1fr 10rem 10rem;
+  grid-template-rows: 15rem 1fr 10rem 20rem;
   row-gap: 2rem;
   column-gap: 3rem;
   padding: 0 calc(3rem + 1vw);
@@ -74,30 +75,44 @@ main {
 
 @media (max-width: 768px) {
   main {
-    grid-template-areas: "comb" "input" "definition" "list" "scores" "instructions";
-    grid-template-columns: 1fr;
+    grid-template-areas: "comb comb" "input input" "definition scores" "list list" "instructions instructions";
+    grid-template-columns: 1fr 10rem;
     grid-template-rows: auto;
     row-gap: 1rem;
+  }
+
+  #input-heading {
+    display: none;
   }
 
   #input {
     grid-area: input;
     justify-self: center;
+    margin-top: 1.5rem;
+  }
+
+  #scores {
+    grid-area: scores;
+    justify-self: start;
+    align-self: center;
+
   }
 
   #instructions {
     grid-area: instructions;
+    align-self: self-start;
     display: none;
   }
 }
 
 
-#circle-comb {
+#comb {
   grid-area: comb;
 }
 
 #input {
   grid-area: input;
+  margin-top: 1rem;
 }
 
 #definition-section {
@@ -146,6 +161,7 @@ h5,
 h6 {
   font-family: var(--font-headings);
   text-transform: capitalize;
+  margin: 0;
 }
 
 
@@ -235,7 +251,7 @@ svg > g > text:hover {
 
 
 #central-letter-group > text {
-  fill: white;
+  fill: var(--color-white);;
 
 }
 
@@ -255,7 +271,7 @@ button {
   font-family: var(--font-assets);
   font-size: calc(0.3rem + 1vw);
   background-color: var(--color-graphite);
-  color: white;
+  color: var(--color-white);;
   border-radius: 0.5rem;
   padding: 0.5rem;
   cursor: pointer;
@@ -264,18 +280,22 @@ button {
 input {
   font-family: var(--font-handwriting);
   font-size: calc(0.3rem + 1vw);
-  background-color: white;
+  background-color: var(--color-white);;
   color: var(--color-graphite);
   border-radius: 0.5rem;
   padding: 0.5rem;
   outline: none;
 }
 
+#input-section {
+  margin-top: 1.2rem;
+}
+
 #definition-area,
 #word-list-ul {
   font-family: var(--font-handwriting);
   font-size: calc(0.3rem + 1vw);
-  background-color: white;
+  background-color: var(--color-white);;
   padding: 0.5rem;
   border: 0.2rem solid var(--color-graphite);
   border-radius: 0.5rem;
@@ -289,7 +309,7 @@ input {
 }
 
 #word-list-ul {
-  min-height: 20vw;
+  min-height: 18vw;
   column-count: 3;
 }
 
@@ -297,15 +317,13 @@ input {
 /* Footer */
 
 cdc-footer {
-  margin-top: calc(3rem + 1vw);
   font-size: calc(0.05rem + 1vw);
 }
 
 
 footer {
-  margin-top: 8rem;
   opacity: 0.4;
-  animation: slide-upwards 3s, change_opacity 3s;
+  animation: slide-upwards 1s, change_opacity 3s;
 }
 
 @keyframes slide-upwards {
@@ -328,15 +346,23 @@ footer {
   }
 
   100% {
-    opacity: 0.3;
+    opacity: 0.4;
   }
+}
+
+
+/* Dialogs */
+
+dialog {
+  background-color: var(--color-white);
+  border-radius: 0.5rem;
 }
 
 /* Dialog instructions */
 
 #dialog-instructions{
-  top: 7%;
+  top: 8%;
   font-size: calc(0.8rem + 1vw);
   margin: calc(1.5rem + 1vw);
-  padding: calc(5rem + 1vw) calc(2rem + 1vw);
+  padding: calc(5rem + 1vw) calc(2rem + 1vw) calc(10rem + 1vw) calc(2rem + 1vw);
 }

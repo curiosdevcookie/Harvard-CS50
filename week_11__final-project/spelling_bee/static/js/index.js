@@ -34,4 +34,6 @@ if (dialog) {
     // Also an animation will be added to the section #instructions that takes 3 seconds:
     instructions.style.animation = 'drop_into_view 3s';
   });
+
 }
+

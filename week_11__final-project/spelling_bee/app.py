@@ -46,8 +46,9 @@ def index_get():
         except TypeError:
             print(f"Error processing row: {row}")
     session['words_results'] = words_results
-    conn.close()
 
+    conn.close()
+    your_score = 0
     words = []
     conn = sqlite3.connect(PATH_TO_DATABASE)
     c = conn.cursor()
@@ -59,10 +60,11 @@ def index_get():
         word = get_word_from_wordlist(row[0])
         if word:
             words.append(word)
+            your_score = your_score + highscore(word)
 
     conn.close()
 
-    return render_template('index.html', random_seven=random_seven, words_results=words_results, b1=b1, b2=b2, b3=b3, b4=b4, b5=b5, b6=b6, b7=b7, definition=session.get('definition'), word=session.get('word'), words=words)
+    return render_template('index.html', random_seven=random_seven, words_results=words_results, b1=b1, b2=b2, b3=b3, b4=b4, b5=b5, b6=b6, b7=b7, definition=session.get('definition'), word=session.get('word'), words=words, your_score=your_score)
 
 @app.route('/', methods=['POST'])
 def index_post():
@@ -86,7 +88,7 @@ def index_post():
         flash(f"The word {term} was already found ✅", "error")
         return redirect("/")
     flash(f"The word {term} was found 🤘", "success")
-    insert_word(term)
+    insert_word_and_points(term)
     get_definition(term)
     get_word_from_wordlist(term)
 
@@ -99,17 +101,14 @@ def create_wordlist_table():
     conn = sqlite3.connect(PATH_TO_DATABASE)
     c = conn.cursor()
 
-    # Create a table if it doesn't exist
     c.execute('''
-        CREATE TABLE IF NOT EXISTS wordlist (
-            word TEXT
-        )
+        CREATE TABLE IF NOT EXISTS wordlist (word TEXT, score INTEGER);
     ''')
 
     conn.commit()
     conn.close()
 
-def insert_word(term):
+def insert_word_and_points(term):
     conn = sqlite3.connect(PATH_TO_DATABASE)
     c = conn.cursor()
 
@@ -119,8 +118,8 @@ def insert_word(term):
     if existing_row:
         print(f"The word '{term}' already exists in the database.")
     else:
-        # Insert a word into the table
-        c.execute('INSERT INTO wordlist (word) VALUES (?)', (term,))
+        # Insert a word and its points into the table
+        c.execute('INSERT INTO wordlist VALUES (?, ?)', (term, highscore(term)))
 
     conn.commit()
     conn.close()
@@ -203,3 +202,21 @@ def delete_all_words():
 
 def clear_session_definition():
     session['definition'] = None
+
+def highscore(word):
+
+    points = 0
+
+    letter_scores = {
+            "A": 1, "E": 1, "I": 1, "O": 1, "U": 1, "L": 1, "N": 1, "S": 1, "T": 1, "R": 1,
+            "D": 2, "G": 2,
+            "B": 3, "C": 3, "M": 3, "P": 3,
+            "F": 4, "H": 4, "V": 4, "W": 4, "Y": 4,
+            "K": 5,
+            "J": 8, "X": 8,
+            "Q": 10, "Z": 10
+        }
+
+    points = sum(letter_scores.get(letter, 0) for letter in word)
+
+    return points

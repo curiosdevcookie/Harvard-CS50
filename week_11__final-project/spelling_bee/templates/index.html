@@ -20,9 +20,6 @@
       <form action='/regenerate' method='post'>
         <button hidden type='submit'>Regenerate</button>
       </form>
-      <!-- <h3>Letters of the Day: {{ random_seven }}</h3>
-
-    <h3>Words of the Day: {{ words_results }}</h3> -->
     </header>
 
     <main>
@@ -271,9 +268,9 @@
       <form id=input action='/' method='post'>
         <h2>User Input</h2>
         <button id='delete' type='button'>Delete</button>
+        <button id='submit' type='submit'>Try</button>
         <input readonly id='input-word' type='text' name='term' minlength='4'
           required placeholder='Your word goes in here'>
-        <button id='submit' type='submit'>Try</button>
       </form>
 
       {% with messages = get_flashed_messages() %}
@@ -293,15 +290,6 @@
         <h2>Definition</h2>
         <p id='definition-area'>
           {{ definition }}
-          <!-- Lorem ipsum, dolor sit amet consectetur
-          adipisicing elit. Officiis, repudiandae enim impedit saepe, quasi
-          veritatis debitis velit expedita eligendi quisquam temporibus
-          similique cupiditate animi eaque porro. Voluptatibus exercitationem
-          qui consequuntur. Lorem ipsum, dolor sit amet consectetur
-          adipisicing elit. Officiis, repudiandae enim impedit saepe, quasi
-          veritatis debitis velit expedita eligendi quisquam temporibus
-          similique cupiditate animi eaque porro. Voluptatibus exercitationem
-          qui consequuntur. -->
         </p>
       </section>
 

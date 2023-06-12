@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather &display=swap');
 /* Handwriting */
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 /* Industrial looking font */
@@ -38,7 +37,13 @@ body {
   grid-template-areas: "header" "main" "footer";
   grid-template-columns: 1fr;
   grid-template-rows: 10rem 1fr 10rem;
-  gap: 5rem;
+  row-gap: 5rem;
+}
+
+@media (max-width: 768px) {
+  body {
+    row-gap: 1rem;
+  }
 }
 
 header {
@@ -60,24 +65,26 @@ footer {
 main {
   display: grid;
   grid-template-areas: "list comb input" "list comb definition" "instructions instructions .";
-
-
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 15rem 1fr 10rem;
-  row-gap: 3rem;
-  column-gap: calc(3rem + 1vw);
+  row-gap: 7rem;
+  column-gap: 3rem;
   padding: 0 calc(3rem + 1vw);
-
 }
 
-/* @media screen and(max-width: 768px) {
+@media (max-width: 768px) {
   main {
-    display: grid;
-    grid-template-areas: "comb comb" "input defintion" "list list";
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 20rem 20rem;
+    grid-template-areas: "comb" "input" "definition" "list" "instructions";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 3rem;
   }
-} */
+
+  #instructions {
+    grid-area: instructions;
+  }
+}
+
 
 #circle-comb {
   grid-area: comb;
@@ -187,8 +194,8 @@ h6 {
 /* Comb */
 
 #comb {
-  aspect-ratio: 1 / 1;
-  width: 100%;
+  width: calc(20rem + 10vw);
+  justify-self: center;
 }
 
 svg {
@@ -301,4 +308,13 @@ footer {
   100% {
     opacity: 0.3;
   }
+}
+
+/* Dialog instructions */
+
+#dialog-instructions{
+  top: 20%;
+  left: 10%;
+  width: 70%;
+  font-size: calc(0.8rem + 1vw);
 }

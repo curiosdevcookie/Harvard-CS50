@@ -6,6 +6,7 @@
 
     <title>Urban Spelling Bee</title>
 
+    <!-- Create a jump button to jump to the text-anchor section "instructions": -->
     <link rel='stylesheet' href='{{ url_for('static', filename='css/index.css' )
       }}'>
     <link rel='icon' href='{{ url_for('static', filename='images/favicon.ico' )
@@ -268,9 +269,9 @@
       <form id=input action='/' method='post'>
         <h2>User Input</h2>
         <button id='delete' type='button'>Delete</button>
-        <button id='submit' type='submit'>Try</button>
         <input readonly id='input-word' type='text' name='term' minlength='4'
-          required placeholder='Your word goes in here'>
+        required placeholder='Your word goes in here'>
+        <button id='submit' type='submit'>Try</button>
       </form>
 
       {% with messages = get_flashed_messages() %}
@@ -312,8 +313,21 @@
           <li>If the word is found in the dictionary, you're provided with its definition and the word is added to your word list.</li>
         </ul>
       </section>
-
     </main>
+
+    <dialog open id='dialog-instructions'>
+      <h2>Instructions</h2>
+      <ul>
+        <li>Create as many words as you can by clicking on the given letters.</li>
+        <li>The word must be at least 4 letters long.</li>
+        <li>The word must contain the letter in the middle.</li>
+        <li>All letters can be used multiple times.</li>
+        <li>If the word is found in the dictionary, you're provided with its definition and the word is added to your word list.</li>
+      </ul>
+      <form method='dialog'>
+        <button value='default'>Got it!</button>
+      </form>
+    </dialog>
 
     <footer>
       <cdc-footer></cdc-footer>

@@ -64,7 +64,7 @@ main {
 
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 15rem 1fr 10rem;
-  row-gap: calc(1rem + 1vw);
+  row-gap: 3rem;
   column-gap: calc(3rem + 1vw);
   padding: 0 calc(3rem + 1vw);
 
@@ -260,7 +260,6 @@ input {
   overflow-y: scroll;
 }
 
-
 #word-list-ul {
   min-height: 20vw;
   column-count: 3;
@@ -275,7 +274,8 @@ cdc-footer {
 
 
 footer {
-  opacity: 0.3;
+  margin-top: 5rem;
+  opacity: 0.4;
   animation: slide-upwards 3s, change_opacity 3s;
 }
 

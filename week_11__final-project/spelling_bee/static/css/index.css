@@ -67,7 +67,7 @@ main {
   grid-template-areas: "list comb input" "list comb definition" "instructions instructions .";
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 15rem 1fr 10rem;
-  row-gap: 7rem;
+  row-gap: 2rem;
   column-gap: 3rem;
   padding: 0 calc(3rem + 1vw);
 }
@@ -77,11 +77,12 @@ main {
     grid-template-areas: "comb" "input" "definition" "list" "instructions";
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    gap: 3rem;
+    row-gap: 1rem;
   }
 
   #instructions {
     grid-area: instructions;
+    display: none;
   }
 }
 
@@ -104,9 +105,20 @@ main {
 
 #instructions {
   grid-area: instructions;
-  display: flex;
-  justify-content: center;
+  display: none;
 }
+
+@keyframes drop_into_view {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }  
+}
+
+
 
 /* List styling */
 #word-list-ul {
@@ -276,12 +288,13 @@ input {
 /* Footer */
 
 cdc-footer {
+  margin-top: calc(3rem + 1vw);
   font-size: calc(0.05rem + 1vw);
 }
 
 
 footer {
-  margin-top: 5rem;
+  margin-top: 8rem;
   opacity: 0.4;
   animation: slide-upwards 3s, change_opacity 3s;
 }
@@ -313,8 +326,8 @@ footer {
 /* Dialog instructions */
 
 #dialog-instructions{
-  top: 20%;
-  left: 10%;
-  width: 70%;
+  top: 7%;
   font-size: calc(0.8rem + 1vw);
+  margin: calc(1.5rem + 1vw);
+  padding: calc(5rem + 1vw) calc(2rem + 1vw);
 }

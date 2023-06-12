@@ -64,9 +64,9 @@ footer {
 
 main {
   display: grid;
-  grid-template-areas: "list comb input" "list comb definition" "instructions instructions .";
+  grid-template-areas: "list comb input" "list comb definition" "list comb scores" "instructions instructions .";
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 15rem 1fr 10rem;
+  grid-template-rows: 15rem 1fr 10rem 10rem;
   row-gap: 2rem;
   column-gap: 3rem;
   padding: 0 calc(3rem + 1vw);
@@ -74,10 +74,15 @@ main {
 
 @media (max-width: 768px) {
   main {
-    grid-template-areas: "comb" "input" "definition" "list" "instructions";
+    grid-template-areas: "comb" "input" "definition" "list" "scores" "instructions";
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     row-gap: 1rem;
+  }
+
+  #input {
+    grid-area: input;
+    justify-self: center;
   }
 
   #instructions {
@@ -106,6 +111,10 @@ main {
 #instructions {
   grid-area: instructions;
   display: none;
+}
+
+#scores {
+  grid-area: scores;
 }
 
 @keyframes drop_into_view {

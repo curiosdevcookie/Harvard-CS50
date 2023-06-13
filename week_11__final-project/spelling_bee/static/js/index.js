@@ -24,22 +24,38 @@ function deleteLetter() {
   input.value = input.value.slice(0, -1);
 }
 
-window.onload = function showInstructionsDialog() {
-  const dialog = document.getElementById('dialog-instructions');
-  const closeButton = document.getElementById('close-dialog');
-  const instructions = document.getElementById('instructions');
+window.onload = function () {
 
-  if (!sessionStorage.getItem('dialogShown')) {
-    dialog.style.display = 'block';
-    closeButton.addEventListener('click', function () {
-      dialog.style.display = 'none';
+  showInstructionsDialog();
+  function showInstructionsDialog() {
+    const dialog = document.getElementById('dialog-instructions');
+    const closeButton = document.getElementById('close-dialog');
+    const instructions = document.getElementById('instructions');
+
+    if (!sessionStorage.getItem('dialogShown')) {
+      dialog.style.display = 'block';
+      closeButton.addEventListener('click', function () {
+        dialog.style.display = 'none';
+        instructions.style.display = 'block';
+
+        instructions.style.animation = 'drop_into_view 6s';
+        sessionStorage.setItem('dialogShown', true);
+      });
+
+    } else {
       instructions.style.display = 'block';
-      instructions.style.animation = 'drop_into_view 8s';
-      sessionStorage.setItem('dialogShown', true);
-    });
-
-  } else {
-    instructions.style.display = 'block';
-    dialog.style.display = 'none';
+      dialog.style.display = 'none';
+    }
   }
-}
+
+  // Copy to clipboard:
+  function copyToClipboard() {
+    const definitionArea = document.getElementById('definition-area');
+    const textToCopy = definitionArea.innerText;
+
+    navigator.clipboard.writeText(textToCopy);
+  }
+  // Copy button onclick event
+  const copyButton = document.getElementById('copyToClipboard');
+  copyButton.onclick = copyToClipboard;
+};

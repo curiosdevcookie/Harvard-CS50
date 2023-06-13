@@ -55,19 +55,14 @@ window.onload = function () {
 
     navigator.clipboard.writeText(textToCopy);
   }
-  // Copy button onclick event
-  const copyButton = document.getElementById('copyToClipboard');
-  copyButton.onclick = copyToClipboard;
 
 
   // Share button:
   function shareText() {
     const definitionArea = document.getElementById('definition-area');
     const textToShare = definitionArea.innerText;
-    const shareButton = document.getElementById('shareButton');
 
     if (navigator.share) {
-      shareButton.style.display = 'block';
       navigator.share({
         text: textToShare
       })
@@ -75,10 +70,22 @@ window.onload = function () {
         .catch((error) => console.log('Error sharing text:', error));
     } else {
       console.log('Web Share API not supported.');
+      // Fallback to copying text to clipboard
+      copyToClipboard();
     }
   }
 
-  // Share button onclick event
-  const shareButton = document.getElementById('shareButton');
-  shareButton.onclick = shareText;
+  // Check if Web Share API is supported
+  if (navigator.share) {
+    const copyButton = document.getElementById('copyToClipboard');
+    copyButton.style.display = 'none';
+
+    const shareButton = document.getElementById('shareButton');
+    shareButton.style.display = 'block';
+    shareButton.onclick = shareText;
+  } else {
+    const copyButton = document.getElementById('copyToClipboard');
+    copyButton.style.display = 'block';
+    copyButton.onclick = copyToClipboard;
+  }
 }

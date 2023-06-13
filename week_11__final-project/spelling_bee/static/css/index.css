@@ -282,6 +282,10 @@ button {
   display: none;
 }
 
+#copyToClipboard {
+  display: none;
+}
+
 input {
   width: 100%;
   font-family: var(--font-handwriting);

@@ -1,7 +1,5 @@
 # syntax=docker/dockerfile:1
 
-# https://docs.docker.com/engine/reference/builder/
-
 ARG PYTHON_VERSION=3.11.3
 FROM python:${PYTHON_VERSION}-slim as base
 
@@ -26,19 +24,15 @@ RUN adduser \
     --uid "${UID}" \
     appuser
 
-# Download dependencies as a separate step to take advantage of Docker's caching.
-# Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
-# Leverage a bind mount to requirements.txt to avoid having to copy them into
-# into this layer.
+# Install wget:
+RUN apt-get update \
+    && apt-get install -y curl
+
+# Download dependencies and dictionary.db file.
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
-    python -m pip install -r requirements.txt
-    
-# Install wget:
-RUN apt-get update && apt-get install -y wget
-
-# Download the dictionary.db file.
-RUN wget "https://www.dropbox.com/s/ooctnlclt9bdmeu/dictionary.db" -O dictionary.db
+    python -m pip install -r requirements.txt \
+    && curl "https://www.dropbox.com/s/ooctnlclt9bdmeu/dictionary.db" -o dictionary.db
 
 # Switch to the non-privileged user to run the application.
 USER appuser

@@ -291,9 +291,12 @@
 
       <section id='definition-section'>
         <h2>Definition</h2>
-        <p id='definition-area'>
-          {{ definition }}
-        </p>
+        <section id='definition-wrapper'>
+          <p id='definition-area'>
+            {{ definition }}
+          </p>
+          <button id='copyToClipboard' type='button' name='copyToClipboard' onclick='copyToClipboard();'>Copy</button>
+        </section>
       </section>
 
       <section id = "scores">

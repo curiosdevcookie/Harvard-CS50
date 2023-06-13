@@ -277,6 +277,10 @@ button {
   cursor: pointer;
 }
 
+#shareButton {
+  display: none;
+}
+
 input {
   font-family: var(--font-handwriting);
   font-size: calc(0.3rem + 1vw);
@@ -311,6 +315,13 @@ input {
 #word-list-ul {
   min-height: 18vw;
   column-count: 3;
+}
+
+#definition-wrapper {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
 }
 
 

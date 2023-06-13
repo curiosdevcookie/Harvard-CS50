@@ -283,6 +283,7 @@ button {
 }
 
 input {
+  width: 100%;
   font-family: var(--font-handwriting);
   font-size: calc(0.3rem + 1vw);
   background-color: var(--color-white);;
@@ -294,6 +295,10 @@ input {
 
 #input-section {
   margin-top: 1.2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #definition-area,
@@ -335,7 +340,7 @@ cdc-footer {
 
 
 footer {
-  opacity: 0.4;
+  opacity: 0.7;
   animation: slide-upwards 1s, change_opacity 3s;
 }
 
@@ -359,7 +364,7 @@ footer {
   }
 
   100% {
-    opacity: 0.4;
+    opacity: 0.7;
   }
 }
 

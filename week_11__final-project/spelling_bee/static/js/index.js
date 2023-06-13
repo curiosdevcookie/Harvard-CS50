@@ -34,7 +34,8 @@ window.onload = function showInstructionsDialog() {
     closeButton.addEventListener('click', function () {
       dialog.style.display = 'none';
       instructions.style.display = 'block';
-      instructions.style.animation = 'drop_into_view 8s';
+
+      instructions.style.animation = 'drop_into_view 6s';
       sessionStorage.setItem('dialogShown', true);
     });
 

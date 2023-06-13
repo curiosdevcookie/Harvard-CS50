@@ -24,23 +24,22 @@ function deleteLetter() {
   input.value = input.value.slice(0, -1);
 }
 
-// check if dialog was already shown:
-// if (!localStorage.getItem('dialogShown')) {
-// dialog #dialog-instructions handling
-// if user closes the dialog, the section #instructions will be added to the DOM:
-const dialog = document.getElementById('dialog-instructions');
-if (dialog) {
-  dialog.addEventListener('close', () => {
-    const instructions = document.getElementById('instructions');
-    if (instructions) {
+window.onload = function showInstructionsDialog() {
+  const dialog = document.getElementById('dialog-instructions');
+  const closeButton = document.getElementById('close-dialog');
+  const instructions = document.getElementById('instructions');
+
+  if (!sessionStorage.getItem('dialogShown')) {
+    dialog.style.display = 'block';
+    closeButton.addEventListener('click', function () {
+      dialog.style.display = 'none';
       instructions.style.display = 'block';
-      // also an animation will be added to the section #instructions that takes 3 seconds:
-      instructions.style.animation = 'drop_into_view 3s';
-    }
-  });
+      instructions.style.animation = 'drop_into_view 8s';
+      sessionStorage.setItem('dialogShown', true);
+    });
+
+  } else {
+    instructions.style.display = 'block';
+    dialog.style.display = 'none';
+  }
 }
-
-//   localStorage.setItem('dialogShown', true);
-// }
-
-

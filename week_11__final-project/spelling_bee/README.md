@@ -38,7 +38,6 @@ The game is played as follows:
 4. All letters can be used multiple times.
 5. If the word is found in the dictionary, you're provided with its definition and the word is added to your word list.
 
-
 ## Final remarks
 
 This is a work in progress. The game is playable, but there are still some bugs to fix and features to add.

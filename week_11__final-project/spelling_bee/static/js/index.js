@@ -58,4 +58,27 @@ window.onload = function () {
   // Copy button onclick event
   const copyButton = document.getElementById('copyToClipboard');
   copyButton.onclick = copyToClipboard;
-};
+
+
+  // Share button:
+  function shareText() {
+    const definitionArea = document.getElementById('definition-area');
+    const textToShare = definitionArea.innerText;
+    const shareButton = document.getElementById('shareButton');
+
+    if (navigator.share) {
+      shareButton.style.display = 'block';
+      navigator.share({
+        text: textToShare
+      })
+        .then(() => console.log('Text shared successfully.'))
+        .catch((error) => console.log('Error sharing text:', error));
+    } else {
+      console.log('Web Share API not supported.');
+    }
+  }
+
+  // Share button onclick event
+  const shareButton = document.getElementById('shareButton');
+  shareButton.onclick = shareText;
+}

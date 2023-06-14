@@ -4,7 +4,7 @@ import sqlite3
 from flask import Flask, flash, render_template, request, session, redirect
 import string
 
-PATH_TO_DATABASE = 'dictionary.db'
+PATH_TO_DATABASE = '/data/dictionary.db'
 
 app = Flask(__name__)
 app.secret_key = 'secret key'

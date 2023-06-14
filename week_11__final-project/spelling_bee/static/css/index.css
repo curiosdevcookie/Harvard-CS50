@@ -1,9 +1,28 @@
 /* Handwriting */
-@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+@font-face {
+  font-family: 'Indie Flower';
+  src: url('../fonts/IndieFlower-Regular.ttf') format('truetype');
+  font-display: swap;
+}
 /* Industrial looking font */
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+@font-face {
+  font-family: 'Roboto Mono';
+  src: url('../fonts/RobotoMono-Medium.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto Mono Light';
+  src: url('../fonts/RobotoMono-Light.ttf') format('truetype');
+  font-display: swap;
+}
+
 /* Urban looking font */
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
+@font-face {
+  font-family: 'Roboto Condensed';
+  src: url('../fonts/RobotoCondensed-Light.ttf') format('truetype');
+  font-display: swap;
+}
 
 
 /*RESETS*/:root
@@ -13,9 +32,10 @@
   box-sizing: border-box;
   font-size: 62.5%;
 
-  --font-headings: Roboto Mono;
-  --font-assets: Roboto Condensed;
-  --font-handwriting: Indie Flower;
+  --font-headings: 'Roboto Mono';
+  --font-copy: 'Roboto Mono Light';
+  --font-assets: 'Roboto Condensed';
+  --font-handwriting: 'Indie Flower';
 
   --color-graphite: #080808;
   --color-yellow: #f9d71c;
@@ -389,4 +409,17 @@ dialog {
   font-size: calc(0.8rem + 1vw);
   margin: calc(1.5rem + 1vw);
   padding: calc(5rem + 1vw) calc(2rem + 1vw) calc(10rem + 1vw) calc(2rem + 1vw);
+}
+
+/* Instructions */
+
+@counter-style bee {
+  system: cyclic;
+  symbols: "🐝";
+  suffix: " ";
+}
+
+.instructions {
+  list-style-type: bee;
+  font-family: var(--font-copy);
 }

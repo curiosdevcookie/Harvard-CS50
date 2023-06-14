@@ -17,7 +17,7 @@ else:
     os.environ['APP_URL'] = "https://urban-spelling-bee.fly.dev"  # Deployed app URL
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 app.secret_key = 'secret key'
 
 @app.route('/', methods=['GET'])

@@ -1,10 +1,15 @@
 #! /bin/bash
- if [[ ! -f /data/dictionary.db ]]; then
+
+# Set variables:
+export PATH_TO_DATABASE="/data/dictionary.db"
+
+if [[ ! -f /data/dictionary.db ]]; then
   echo "Couldn't find dictionary"
   curl "https://www.dropbox.com/s/ooctnlclt9bdmeu/dictionary.db" -o dictionary.db 
   mv dictionary.db /data/
-  chmod +w /data/dictionary.db
-  chown -R appuser:appuser /data/dictionary.db
- fi
+  chmod 777 /data/dictionary.db
+  chown -R appuser:appuser /data
+fi
 
-  gunicorn 'app:app' --bind=0.0.0.0:8000
+# Start the app
+gunicorn 'app:app' --bind=0.0.0.0:8000

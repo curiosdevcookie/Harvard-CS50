@@ -62,8 +62,12 @@ window.onload = function () {
     const definitionArea = document.getElementById('definition-area');
     const textToShare = definitionArea.innerText;
 
-    const input = document.getElementById('input-word');
-    const wordToShare = input.innerText;
+    const wordlist = document.getElementById('word-list-ul');
+    const word = wordlist.lastElementChild;
+    const wordToShare = word.innerText;
+
+    const scoreArea = document.getElementById('score-area');
+    const scoreToShare = scoreArea.innerText;
 
     const svg = document.getElementById('comb');
     const svgToShare = svg.outerHTML;
@@ -87,13 +91,11 @@ window.onload = function () {
           context.drawImage(img, 0, 0);
 
           canvas.toBlob(function (blob) {
-            const filesArray = [new File([blob], 'comb.png', { type: 'image/png' })];
+            const imageToShare = [new File([blob], 'comb.png', { type: 'image/png' })];
 
             navigator.share({
-              text: textToShare,
-              title: 'Spelling Bee',
-              url: urlToShare,
-              files: filesArray
+              text: `I found "${wordToShare}" which has the definition "${textToShare}". I played on ${urlToShare} and my score is ${scoreToShare} points with these letters:`,
+              files: imageToShare
             })
               .then(() => console.log('Text shared successfully.'))
               .catch((error) => console.log('Error sharing text:', error));

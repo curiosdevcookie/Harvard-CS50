@@ -26,7 +26,7 @@
 /*GENERAL STYLING*/
 body {
   font-family: var(--font-headings);
-  font-size: calc(0.3rem + 1vw);
+  font-size: calc(0.4rem + 1vw);
   background-color: var(--color-yellow);
   color: var(--color-graphite);
 }
@@ -270,7 +270,7 @@ text:hover {
 
 button {
   font-family: var(--font-assets);
-  font-size: calc(0.3rem + 1vw);
+  font-size: calc(0.6rem + 1vw);
   background-color: var(--color-graphite);
   color: var(--color-white);;
   border-radius: 0.5rem;
@@ -289,7 +289,7 @@ button {
 input {
   width: 100%;
   font-family: var(--font-handwriting);
-  font-size: calc(0.3rem + 1vw);
+  font-size: calc(0.6rem + 1vw);
   background-color: var(--color-white);;
   color: var(--color-graphite);
   border-radius: 0.5rem;
@@ -308,7 +308,7 @@ input {
 #definition-area,
 #word-list-ul {
   font-family: var(--font-handwriting);
-  font-size: calc(0.3rem + 1vw);
+  font-size: calc(0.6rem + 1vw);
   background-color: var(--color-white);;
   padding: 0.5rem;
   border: 0.2rem solid var(--color-graphite);
@@ -339,11 +339,12 @@ input {
 /* Footer */
 
 cdc-footer {
-  font-size: calc(0.05rem + 1vw);
+  font-size: calc(0.1rem + 1vw);
 }
 
 
 footer {
+  margin-top: calc(0.5rem + 1vw);
   opacity: 0.7;
   animation: slide-upwards 1s, change_opacity 3s;
 }

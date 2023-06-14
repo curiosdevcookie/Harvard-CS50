@@ -18,6 +18,7 @@
   <body>
     <header>
       <h1>Urban Spelling Bee</h1>
+      <p hidden id='randomSeven'>{{ random_seven }}</p>
     </header>
 
     <main>
@@ -181,8 +182,8 @@
         <style type='text/css'>
         .st0{fill:var(--color-graphite);}
         .st1{fill:var(--color-graphite);}
-        .st2{font-size:120px;}
-        .st3{fill:var(--color-white);}
+        .st2{font-size: 120px;}
+        .st3{fill:#fff;}
       </style>
         <g id='honeycomb' class='st0'>
           <polygon
@@ -197,7 +198,7 @@
             l121.5,68.1l119.7-71.2L483.6,346L362.1,277.9L362.1,277.9z' />
           </g>
           <text id='b1' text-anchor="middle" x="363.7" y="460"
-            class='st2'>{{ b1 }}</text>
+            class='st2 st3'>{{ b1 }}</text>
         </g>
         <g>
           <g id='poly6'>
@@ -296,8 +297,7 @@
           <p id='definition-area'>
             {{ definition }}
           </p>
-          <button id='copyToClipboard' type='button' name='copyToClipboard' onclick='copyToClipboard();'>Copy</button>
-          <button id='shareButton' type='button' name='shareButton' onclick='shareText();'>Share</button>
+          <button id='buttonCopyOrShare' type='button'>Text</button>
         </section>
       </section>
 

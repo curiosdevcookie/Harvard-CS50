@@ -423,3 +423,7 @@ dialog {
   list-style-type: bee;
   font-family: var(--font-copy);
 }
+
+#combShare {
+  visibility: collapse;
+}

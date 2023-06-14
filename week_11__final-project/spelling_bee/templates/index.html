@@ -18,6 +18,7 @@
   <body>
     <header>
       <h1>Urban Spelling Bee</h1>
+      <p hidden id='randomSeven'>{{ random_seven }}</p>
     </header>
 
     <main>
@@ -296,8 +297,7 @@
           <p id='definition-area'>
             {{ definition }}
           </p>
-          <button id='copyToClipboard' type='button' name='copyToClipboard' onclick='copyToClipboard();'>Copy</button>
-          <button id='shareButton' type='button' name='shareButton' onclick='shareText();'>Share</button>
+          <button id='buttonCopyOrShare' type='button'>Text</button>
         </section>
       </section>
 

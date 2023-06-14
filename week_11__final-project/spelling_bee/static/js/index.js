@@ -48,82 +48,73 @@ window.onload = function () {
     }
   }
 
-  // Copy to clipboard:
-  function copyToClipboard() {
+  // eitherCopyOrShare when the button is clicked:
+
+  function eitherCopyOrShare() {
+
     const definitionArea = document.getElementById('definition-area');
-    const textToCopy = definitionArea.innerText;
-
-    navigator.clipboard.writeText(textToCopy);
-  }
-
-
-  // Share button:
-  function shareText() {
-    const definitionArea = document.getElementById('definition-area');
-    const textToShare = definitionArea.innerText;
+    const definitionToShare = definitionArea.innerText;
 
     const wordlist = document.getElementById('word-list-ul');
     const word = wordlist.lastElementChild;
-    const wordToShare = word.innerText;
+    const wordToShare = word ? word.innerText : 'a nothing';
 
     const scoreArea = document.getElementById('score-area');
     const scoreToShare = scoreArea.innerText;
+
+    const randomSeven = document.getElementById('randomSeven');
+    const randomSevenToShare = randomSeven.innerText;
 
     const svg = document.getElementById('comb');
     const svgToShare = svg.outerHTML;
 
     const urlToShare = 'https://urban-spelling-bee.fly.dev/';
 
-    if (navigator.share) {
-      const svgBlob = new Blob([svgToShare], { type: 'image/svg+xml' });
 
-      const reader = new FileReader();
-      reader.onload = function () {
-        const svgDataUrl = reader.result;
+    const svgBlob = new Blob([svgToShare], { type: 'image/svg+xml' });
 
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
+    const reader = new FileReader();
+    reader.onload = function () {
+      const svgDataUrl = reader.result;
 
-        const img = new Image();
-        img.onload = function () {
-          canvas.width = img.width;
-          canvas.height = img.height;
-          context.drawImage(img, 0, 0);
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
 
-          canvas.toBlob(function (blob) {
-            const imageToShare = [new File([blob], 'comb.png', { type: 'image/png' })];
+      const img = new Image();
+      img.onload = function () {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        context.drawImage(img, 0, 0);
 
+        canvas.toBlob(function (blob) {
+          const imageToShare = [new File([blob], 'comb.png', { type: 'image/png' })];
+          const textToShare = `I found "${wordToShare}" which has the definition "${definitionToShare}". I played on ${urlToShare} and my score is ${scoreToShare} points with these letters:`;
+
+          if (navigator.share) {
             navigator.share({
-              text: `I found "${wordToShare}" which has the definition "${textToShare}". I played on ${urlToShare} and my score is ${scoreToShare} points with these letters:`,
+              text: textToShare,
               files: imageToShare
             })
-              .then(() => console.log('Text shared successfully.'))
-              .catch((error) => console.log('Error sharing text:', error));
-          });
-        };
-
-        img.src = svgDataUrl;
+          } else {
+            navigator.clipboard.writeText(`${textToShare} ${randomSevenToShare}`);
+          }
+        });
       };
 
-      reader.readAsDataURL(svgBlob);
-    } else {
-      console.log('Web Share API not supported.');
-      // Fallback to copying text to clipboard
-      copyToClipboard();
-    }
+      img.src = svgDataUrl;
+    };
+
+    reader.readAsDataURL(svgBlob);
   }
 
   // Check if Web Share API is supported
-  if (navigator.share) {
-    const copyButton = document.getElementById('copyToClipboard');
-    copyButton.style.display = 'none';
+  const buttonCopyOrShare = document.getElementById('buttonCopyOrShare');
 
-    const shareButton = document.getElementById('shareButton');
-    shareButton.style.display = 'block';
-    shareButton.onclick = shareText;
+  if (navigator.share) {
+    buttonCopyOrShare.innerHTML = 'Share';
+    buttonCopyOrShare.addEventListener('click', eitherCopyOrShare);
   } else {
-    const copyButton = document.getElementById('copyToClipboard');
-    copyButton.style.display = 'block';
-    copyButton.onclick = copyToClipboard;
+    buttonCopyOrShare.innerHTML = 'Copy';
+    buttonCopyOrShare.addEventListener('click', eitherCopyOrShare);
   }
 }

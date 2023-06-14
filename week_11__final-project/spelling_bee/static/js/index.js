@@ -62,18 +62,42 @@ window.onload = function () {
     const definitionArea = document.getElementById('definition-area');
     const textToShare = definitionArea.innerText;
 
+    const input = document.getElementById('input-word');
+    const wordToShare = input.innerText;
+
+    const svg = document.getElementById('comb');
+    const svgToShare = comb.outerHTML;
+
+    const urlToShare = 'https://urban-spelling-bee.fly.dev/';
+
     if (navigator.share) {
-      navigator.share({
-        text: textToShare
-      })
-        .then(() => console.log('Text shared successfully.'))
-        .catch((error) => console.log('Error sharing text:', error));
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      const img = new Image();
+
+      img.onload = function () {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        context.drawImage(img, 0, 0);
+
+        canvas.toBlob(function (blob) {
+          const filesArray = [new File([blob], 'comb.png', { type: 'image/png' })];
+
+          navigator.share({
+            text: textToShare, title: 'Spelling Bee', url: urlToShare, text: wordToShare, files: filesArray
+          })
+            .then(() => console.log('Text shared successfully.'))
+            .catch((error) => console.log('Error sharing text:', error));
+        });
+      };
+      img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgToShare)));
     } else {
       console.log('Web Share API not supported.');
       // Fallback to copying text to clipboard
       copyToClipboard();
     }
   }
+
 
   // Check if Web Share API is supported
   if (navigator.share) {

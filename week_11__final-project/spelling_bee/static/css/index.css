@@ -14,7 +14,6 @@
   font-size: 62.5%;
 
   --font-headings: Roboto Mono;
-  --font-copy: Helvetica;
   --font-assets: Roboto Condensed;
   --font-handwriting: Indie Flower;
 
@@ -39,12 +38,6 @@ body {
   grid-template-columns: 1fr;
   grid-template-rows: 10rem 1fr 10rem;
   row-gap: 3rem;
-}
-
-@media (max-width: 768px) {
-  body {
-    row-gap: 1rem;
-  }
 }
 
 header {
@@ -74,6 +67,10 @@ main {
 }
 
 @media (max-width: 768px) {
+  body {
+    row-gap: 1rem;
+  }
+
   main {
     grid-template-areas: "comb comb" "input input" "definition scores" "list list" "instructions instructions";
     grid-template-columns: 1fr 10rem;
@@ -139,9 +136,8 @@ main {
 
   100% {
     transform: translateY(0%);
-  }  
+  }
 }
-
 
 
 /* List styling */

@@ -1,10 +1,21 @@
+import os
 import random
 import sqlite3
 
 from flask import Flask, flash, render_template, request, session, redirect
 import string
 
-PATH_TO_DATABASE = '/data/dictionary.db'
+
+# Check if the application should run locally or in docker, to run locally set is_local to True:
+is_local = True
+
+# Set the environment variable based on the mode:
+if is_local:
+    os.environ['PATH_TO_DATABASE'] = "dictionary.db"
+    os.environ['APP_URL'] = "http://localhost:8000"  # Local/Docker  URL
+else:
+    os.environ['APP_URL'] = "https://urban-spelling-bee.fly.dev"  # Deployed app URL
+
 
 app = Flask(__name__)
 app.secret_key = 'secret key'
@@ -33,7 +44,7 @@ def index_get():
 
     words_results = []
 
-    conn = sqlite3.connect(PATH_TO_DATABASE)
+    conn = sqlite3.connect(os.environ['PATH_TO_DATABASE'])
     c = conn.cursor()
 
     # append only the words from the database that can be constructed using no letter that is contained in random_rest:
@@ -50,7 +61,7 @@ def index_get():
     conn.close()
     your_score = 0
     words = []
-    conn = sqlite3.connect(PATH_TO_DATABASE)
+    conn = sqlite3.connect(os.environ['PATH_TO_DATABASE'])
     c = conn.cursor()
 
     c.execute("SELECT word FROM wordlist")
@@ -98,7 +109,7 @@ def index_post():
 
 
 def create_wordlist_table():
-    conn = sqlite3.connect(PATH_TO_DATABASE)
+    conn = sqlite3.connect(os.environ['PATH_TO_DATABASE'])
     c = conn.cursor()
 
     c.execute('''
@@ -109,7 +120,7 @@ def create_wordlist_table():
     conn.close()
 
 def insert_word_and_points(term):
-    conn = sqlite3.connect(PATH_TO_DATABASE)
+    conn = sqlite3.connect(os.environ['PATH_TO_DATABASE'])
     c = conn.cursor()
 
     # Check if the word already exists in the table
@@ -156,7 +167,7 @@ def generate():
 def get_definition(term):
     print(f"term is {term}")
     # get the definition from the database:
-    conn = sqlite3.connect(PATH_TO_DATABASE)
+    conn = sqlite3.connect(os.environ['PATH_TO_DATABASE'])
     c = conn.cursor()
 
     c.execute("SELECT definition FROM entries WHERE word=?", (term,))
@@ -177,7 +188,7 @@ def get_definition(term):
 def get_word_from_wordlist(term):
 
     print(f"term is {term}")
-    conn = sqlite3.connect(PATH_TO_DATABASE)
+    conn = sqlite3.connect(os.environ['PATH_TO_DATABASE'])
     c = conn.cursor()
 
     c.execute("SELECT word FROM wordlist WHERE word=?", (term,))
@@ -192,7 +203,7 @@ def get_word_from_wordlist(term):
     return word
 
 def delete_all_words():
-    conn = sqlite3.connect(PATH_TO_DATABASE)
+    conn = sqlite3.connect(os.environ['PATH_TO_DATABASE'])
     c = conn.cursor()
 
     c.execute("DELETE FROM wordlist")

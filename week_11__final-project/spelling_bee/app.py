@@ -7,7 +7,7 @@ import string
 
 
 # Check if the application should run locally or in docker, to run locally set is_local to True:
-is_local = True
+is_local = False
 
 # Set the environment variable based on the mode:
 if is_local:

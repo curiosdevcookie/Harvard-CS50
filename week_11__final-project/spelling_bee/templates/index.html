@@ -282,7 +282,7 @@
       {% if messages %}
       {% for message in messages %}
       <dialog open>
-        <p id='"message'>{{ message }}</p>
+        <p>{{ message }}</p>
         <form method="dialog">
           <button value="default">Ok</button>
         </form>
@@ -291,25 +291,16 @@
       {% endif %}
       {% endwith %}
 
-      <section id='definition-section'>
-        <h2>Definition</h2>
-        <section id='definition-wrapper'>
-          <p id='definition-area'>
-            {{ definition }}
-          </p>
-          <button id='buttonCopyOrShareWordDef' type='button'>Text</button>
-        </section>
-      </section>
-
       <section id = "scores">
         <h2>Your Score</h2>
-        <section id='score-wrapper'>
           <p id='score-area'>
             {{ your_score }}
           </p>
-          <button id='buttonCopyOrShareResult' type='button'>Text</button>
-        </section>
       </section>
+       
+      <button id="buttonCopyOrShareResult" type="button">Text 
+      </button>
+
 
       <section id='word-list'>
         <h2>Word List</h2>

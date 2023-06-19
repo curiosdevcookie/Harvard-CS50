@@ -2,7 +2,7 @@ import os
 import random
 import sqlite3
 
-from flask import Flask, flash, render_template, request, session, redirect
+from flask import Flask, flash, render_template, request, session, redirect, Markup
 import string
 
 
@@ -98,13 +98,53 @@ def index_post():
     if get_word_from_wordlist(term):
         flash(f"The word {term} was already found ✅", "error")
         return redirect("/")
-    flash(f"The word {term} was found 🤘", "success")
     insert_word_and_points(term)
     get_definition(term)
     get_word_from_wordlist(term)
 
     session['definition'] = get_definition(term)
+    definition = session.get('definition')
     session['word'] = get_word_from_wordlist(term)
+
+    # Define Python variables
+    wordToShare = session.get('word')
+    definitionToShare = session.get('definition')
+
+    # Generate the share button HTML using Python variables
+    share_button_html = f'''
+    <button id='buttonCopyOrShareWordDef' type='button'>Text</button>
+    <script>
+      function setupCopyOrShareButton(buttonId, clickHandler) {{
+        const button = document.getElementById(buttonId);
+        const action = navigator.share ? ' 📤' : '📥';
+
+        button.innerHTML = action;
+        button.addEventListener('click', clickHandler);
+      }}
+
+      // Copy or share a specific word and its definition:
+      function eitherCopyOrShareWordDef() {{
+        const wordToShare = "{wordToShare}";
+        const definitionToShare = "{definitionToShare}";
+        const textToShare = `I found "{wordToShare}" which has the definition "{definitionToShare}".`;
+
+        if (navigator.share) {{
+          navigator.share({{
+              text: textToShare
+          }});
+        }} else {{
+          navigator.clipboard.writeText(textToShare);
+        }}
+      }}
+
+      setupCopyOrShareButton('buttonCopyOrShareWordDef', eitherCopyOrShareWordDef);
+    </script>
+    '''
+
+    # Wrap the success message in Markup to avoid HTML escaping
+    success_message = Markup(f"The word {wordToShare} was found 🤘 with this definition '{definitionToShare}' {share_button_html}")
+    flash(success_message, "success")
+
     return redirect("/")
 
 

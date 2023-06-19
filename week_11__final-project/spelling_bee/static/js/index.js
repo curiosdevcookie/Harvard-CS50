@@ -51,34 +51,11 @@ window.onload = function () {
   // Setup buttons according to availability status of the Web Share API:
   function setupButton(buttonId, clickHandler) {
     const button = document.getElementById(buttonId);
-    const action = navigator.share ? 'Share' : 'Copy';
+    const action = navigator.share ? 'Share Results! ' : 'Copy Results!';
 
     button.innerHTML = action;
     button.addEventListener('click', clickHandler);
   }
-
-  // Copy or share a specific word and its definition:
-  function eitherCopyOrShareWordDef() {
-
-    const definitionArea = document.getElementById('definition-area');
-    const definitionToShare = definitionArea.innerText;
-
-    const wordlist = document.getElementById('word-list-ul');
-    const word = wordlist.lastElementChild;
-    const wordToShare = word ? word.innerText : 'a nothing';
-
-    const textToShare = `I found "${wordToShare}" which has the definition "${definitionToShare}".`;
-
-    if (navigator.share) {
-      navigator.share({
-        text: textToShare
-      })
-    } else {
-      navigator.clipboard.writeText(textToShare);
-    }
-  }
-
-  setupButton('buttonCopyOrShareWordDef', eitherCopyOrShareWordDef);
 
   // Copy or share the result, the comb/the played letters, the game url:
   function eitherCopyOrShareResult() {

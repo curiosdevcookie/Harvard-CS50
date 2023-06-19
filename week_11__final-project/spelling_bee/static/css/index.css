@@ -349,7 +349,7 @@ input {
   column-count: 3;
 }
 
-#definition-wrapper {
+#definition-wrapper, #score-wrapper {
   display: flex;
   gap: 1rem;
   justify-content: space-between;

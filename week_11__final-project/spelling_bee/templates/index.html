@@ -297,15 +297,18 @@
           <p id='definition-area'>
             {{ definition }}
           </p>
-          <button id='buttonCopyOrShare' type='button'>Text</button>
+          <button id='buttonCopyOrShareWordDef' type='button'>Text</button>
         </section>
       </section>
 
       <section id = "scores">
         <h2>Your Score</h2>
-        <p id='score-area'>
-          {{ your_score }}
-        </p>
+        <section id='score-wrapper'>
+          <p id='score-area'>
+            {{ your_score }}
+          </p>
+          <button id='buttonCopyOrShareResult' type='button'>Text</button>
+        </section>
       </section>
 
       <section id='word-list'>

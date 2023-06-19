@@ -48,9 +48,17 @@ window.onload = function () {
     }
   }
 
-  // eitherCopyOrShare when the button is clicked:
+  // Setup buttons according to availability status of the Web Share API:
+  function setupButton(buttonId, clickHandler) {
+    const button = document.getElementById(buttonId);
+    const action = navigator.share ? 'Share' : 'Copy';
 
-  function eitherCopyOrShare() {
+    button.innerHTML = action;
+    button.addEventListener('click', clickHandler);
+  }
+
+  // Copy or share a specific word and its definition:
+  function eitherCopyOrShareWordDef() {
 
     const definitionArea = document.getElementById('definition-area');
     const definitionToShare = definitionArea.innerText;
@@ -58,6 +66,22 @@ window.onload = function () {
     const wordlist = document.getElementById('word-list-ul');
     const word = wordlist.lastElementChild;
     const wordToShare = word ? word.innerText : 'a nothing';
+
+    const textToShare = `I found "${wordToShare}" which has the definition "${definitionToShare}".`;
+
+    if (navigator.share) {
+      navigator.share({
+        text: textToShare
+      })
+    } else {
+      navigator.clipboard.writeText(textToShare);
+    }
+  }
+
+  setupButton('buttonCopyOrShareWordDef', eitherCopyOrShareWordDef);
+
+  // Copy or share the result, the comb/the played letters, the game url:
+  function eitherCopyOrShareResult() {
 
     const scoreArea = document.getElementById('score-area');
     const scoreToShare = scoreArea.innerText;
@@ -74,47 +98,36 @@ window.onload = function () {
     const svgBlob = new Blob([svgToShare], { type: 'image/svg+xml' });
 
     const reader = new FileReader();
-    reader.onload = function () {
-      const svgDataUrl = reader.result;
 
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
 
-      const img = new Image();
-      img.onload = function () {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        context.drawImage(img, 0, 0);
+    const img = new Image();
+    img.onload = function () {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      context.drawImage(img, 0, 0);
 
-        canvas.toBlob(function (blob) {
-          const imageToShare = [new File([blob], 'comb.png', { type: 'image/png' })];
-          const textToShare = `I found "${wordToShare}" which has the definition "${definitionToShare}". I played on ${urlToShare} and my score is ${scoreToShare} points with these letters:`;
+      canvas.toBlob(function (blob) {
+        const imageToShare = [new File([blob], 'comb.png', { type: 'image/png' })];
+        const textToShare = `I played Urban Spelling Bee on ${urlToShare} and my score is ${scoreToShare} points with these letters:
+        `;
 
-          if (navigator.share) {
-            navigator.share({
-              text: textToShare,
-              files: imageToShare
-            })
-          } else {
-            navigator.clipboard.writeText(`${textToShare} ${randomSevenToShare}`);
-          }
-        });
-      };
-
-      img.src = svgDataUrl;
+        if (navigator.share) {
+          navigator.share({
+            text: textToShare,
+            files: imageToShare
+          })
+        } else {
+          navigator.clipboard.writeText(`${textToShare} ${randomSevenToShare}`);
+        }
+      });
     };
 
-    reader.readAsDataURL(svgBlob);
+    img.src = URL.createObjectURL(svgBlob);
+
   }
 
-  // Check if Web Share API is supported
-  const buttonCopyOrShare = document.getElementById('buttonCopyOrShare');
-
-  if (navigator.share) {
-    buttonCopyOrShare.innerHTML = 'Share';
-    buttonCopyOrShare.addEventListener('click', eitherCopyOrShare);
-  } else {
-    buttonCopyOrShare.innerHTML = 'Copy';
-    buttonCopyOrShare.addEventListener('click', eitherCopyOrShare);
-  }
+  setupButton('buttonCopyOrShareResult', eitherCopyOrShareResult);
 }
+

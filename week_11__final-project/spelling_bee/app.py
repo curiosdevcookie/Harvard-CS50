@@ -7,7 +7,7 @@ import string
 
 
 # Check if the application should run locally or in docker, to run locally set is_local to True:
-is_local = True
+is_local = False
 
 # Set the environment variable based on the mode:
 if is_local:
@@ -19,6 +19,7 @@ else:
 
 app = Flask(__name__, static_folder='static')
 app.secret_key = 'secret key'
+app.config['SESSION_COOKIE_MAX_SIZE'] = 6000
 
 @app.route('/', methods=['GET'])
 def index_get():
@@ -207,7 +208,7 @@ def generate_random_seven():
 def generate():
     generate_random_seven()
     delete_all_words()
-    clear_session_definition()
+    clear_session()
     return redirect("/")
 
 
@@ -259,8 +260,12 @@ def delete_all_words():
     conn.commit()
     conn.close()
 
-def clear_session_definition():
+def clear_session():
+    session['random_seven'] = None
+    session['term'] = None
     session['definition'] = None
+    session['word'] = None
+
 
 def highscore(word):
 

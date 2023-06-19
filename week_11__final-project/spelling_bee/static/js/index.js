@@ -120,5 +120,15 @@ window.onload = function () {
 
   }
   setupButton('buttonCopyOrShareResult', eitherCopyOrShareResult);
-}
 
+
+  function showPangramPoints() {
+    const pElement = document.querySelector('dialog p');
+    if (pElement && pElement.textContent.includes('🐝')) {
+      const pangram = document.getElementById('pangram-found');
+      pangram.style.display = 'block';
+    }
+  }
+
+  showPangramPoints();
+}

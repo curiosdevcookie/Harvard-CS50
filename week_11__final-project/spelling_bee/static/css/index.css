@@ -41,6 +41,7 @@
   --color-graphite: #080808;
   --color-yellow: #f9d71c;
   --color-white: #faf9ef;
+  --color-rebeccapurple: #663399;
 }
 
 /*GENERAL STYLING*/
@@ -75,6 +76,7 @@ main {
 footer {
   grid-area: footer;
   text-align: right;
+  margin-top: 5rem;
 }
 
 main {
@@ -90,6 +92,10 @@ main {
 @media (max-width: 768px) {
   body {
     row-gap: 0.5rem;
+  }
+
+  footer {
+    margin-top: -3rem;
   }
 
   main {
@@ -113,7 +119,6 @@ main {
     grid-area: scores;
     justify-self: start;
     align-self: center;
-
   }
 
   #results {
@@ -262,7 +267,7 @@ button {
 #github-icon {
   width: calc(2rem + 1vw);
   height: auto;
-  fill: rebeccapurple;
+  fill: var(--color-rebeccapurple);
   position: fixed;
   top: calc(1rem + 1vw);
   right: calc(1rem + 1vw);
@@ -312,16 +317,21 @@ input {
   border-radius: 0.5rem;
 }
 
+#pangram-found {
+  display: none;
+  font-family: var(--font-handwriting);
+  font-size: calc(4rem + 1vw);
+  color: var(--color-rebeccapurple);
+  animation: fade-in-out 2s linear, drop_into_view 5s linear;
+  opacity: 0;
+}
+
 
 /* Footer */
 
 cdc-footer {
   font-size: calc(0.1rem + 1vw);
-}
-
-footer {
-  margin-top: calc(0.7rem + 1vw);
-  opacity: 0.7;
+  color: var(--color-rebeccapurple);
 }
 
 
@@ -433,10 +443,27 @@ dialog {
 
 @keyframes drop_into_view {
   0% {
-    transform: translateY(-100%);
+    transform: translateY(0%);
+  }
+
+  50% {
+    transform: translateY(-50%);
   }
 
   100% {
-    transform: translateY(0%);
+    transform: translateY(-100%);
+  }
+}
+
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

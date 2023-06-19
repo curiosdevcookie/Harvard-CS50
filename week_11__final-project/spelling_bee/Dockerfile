@@ -35,6 +35,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 # Copy the source code into the container.
 COPY . .
+RUN cp app.py app.py.bak \
+    && sed 's/is_local = True/is_local = False/g' app.py.bak > app.py
 RUN chmod +x ./run.sh \
     && chown -R appuser:appuser /app
 

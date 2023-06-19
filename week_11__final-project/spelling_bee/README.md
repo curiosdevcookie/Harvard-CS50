@@ -2,11 +2,33 @@
 
 We love playing the [Spelling Bee of the NY Times](https://www.nytimes.com/puzzles/spelling-bee).
 
-This is a version of Spelling Bee with the Urban Dictionary as its lexicon.
+So I thaught that this would make a fun challenge for me to implement. To give it a little spin, this is Spelling Bee with the Urban Dictionary as its lexicon.
 
-As we aren't English native speakers and we like to learn new words, the player is provided with a word's definition if the word is found in the dictionary.
+Also, as we aren't English native speakers, the player is provided with the definition of the word if the word is found in the dictionary.
 
-Protip: Click on the bee to get a new set of letters.
+_Protip_: Click on the bee to get a new set of letters!
+
+## How to play
+
+The game is played as follows:
+
+1. Create as many words as you can by clicking on the given letters.
+2. The word must be at least 4 letters long.
+3. The word must contain the letter in the middle.
+4. All letters can be used multiple times.
+5. If the word is found in the dictionary, you're provided with its definition and the word is added to your word list.
+
+## How to run the app, choose:
+
+- [Run the app locally](#run-the-app-locally)
+  - [Installation](#installation)
+  - [Set up the database](#set-up-the-database)
+  - [Configuration](#configuration)
+  - [Run the app](#run-the-app)
+- [Run the app via Docker](#run-the-app-via-docker)
+  - [Installation](#installation-1)
+  - [Configuration](#configuration-1)
+  - [Run the app](#run-the-app-1)
 
 ## Run the app locally
 
@@ -75,13 +97,3 @@ docker run -p 8000:8000 -v "$(pwd)/data:/data" spelling-bee
 The `$(pwd)/data:/data` part in the docker run command is used to mount the  data directory to the /data directory inside the Docker container. This allows the container to access the dictionary.db.
 
 You can now access the app on `http://127.0.0.1:8000/`.
-
-## How to play
-
-The game is played as follows:
-
-1. Create as many words as you can by clicking on the given letters.
-2. The word must be at least 4 letters long.
-3. The word must contain the letter in the middle.
-4. All letters can be used multiple times.
-5. If the word is found in the dictionary, you're provided with its definition and the word is added to your word list.

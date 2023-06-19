@@ -26,8 +26,8 @@ The game is played as follows:
   - [Configuration](#configuration)
   - [Run the app](#run-the-app)
 - [Run the app via Docker](#run-the-app-via-docker)
-  - [Installation](#installation-1)
   - [Configuration](#configuration-1)
+  - [Installation](#installation-1)
   - [Run the app](#run-the-app-1)
 
 ## Run the app locally
@@ -45,7 +45,7 @@ pip install -r requirements.txt
 To install the database, you need to run the following commands in your terminal:
 
 ```bash
-wget "https://www.dropbox.com/s/tiqdlgzbo40ak8g/dictionary.db" -O dictionary.db
+wget "https://dl.dropboxusercontent.com/s/ooctnlclt9bdmeu/dictionary.db" -O dictionary.db
 ```
 
 ### Configuration
@@ -70,20 +70,20 @@ You can now access the app on `http://127.0.0.1:8000/`.
 
 ## Run the app via docker
 
-### Installation
-
-Run the following command in your terminal to build the container:
-
-```bash
-docker build -t spelling-bee .
-```
-
 ### Configuration
 
 In `app.py`, set the variable `is_local` to `False`.
 
 ```python
 is_local = False
+```
+
+### Installation
+
+Run the following command in your terminal to build the container:
+
+```bash
+docker build -t spelling-bee .
 ```
 
 ### Run the app

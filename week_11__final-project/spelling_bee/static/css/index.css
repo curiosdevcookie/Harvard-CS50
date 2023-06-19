@@ -162,7 +162,6 @@ main {
 }
 
 
-/* List styling */
 #word-list-ul {
   font-family: var(--font-handwriting);
   list-style-type: none;

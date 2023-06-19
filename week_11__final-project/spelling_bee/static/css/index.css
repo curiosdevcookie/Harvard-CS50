@@ -116,8 +116,14 @@ main {
 
   }
 
-  #buttonCopyOrShareResult {
+  #results {
   grid-area: shareResults;
+  justify-self: end;
+  align-self: center;
+  }
+
+  #results > p {
+    display: none;
   }
 
   #instructions {
@@ -137,8 +143,9 @@ main {
   margin-top: 1rem;
 }
 
-#buttonCopyOrShareResult {
+#results {
   grid-area: shareResults;
+  justify-self: right;
 }
 
 #word-list {
@@ -154,18 +161,7 @@ main {
   grid-area: scores;
 }
 
-@keyframes drop_into_view {
-  0% {
-    transform: translateY(-100%);
-  }
 
-  100% {
-    transform: translateY(0%);
-  }
-}
-
-
-/* List styling */
 #word-list-ul {
   font-family: var(--font-handwriting);
   list-style-type: none;
@@ -195,6 +191,177 @@ h6 {
   right: -10%;
   animation: fly 13s, jiggle 1s infinite;
 }
+
+
+/* Comb */
+
+#comb {
+  width: calc(20rem + 10vw);
+  justify-self: center;
+}
+
+svg {
+  width: 20vw;
+  height: auto;
+}
+
+
+svg > g > text:hover {
+  fill: var(--color-yellow);
+}
+
+.st3:hover {
+  fill: var(--color-yellow);
+}
+
+
+#central-letter-group > text {
+  fill: var(--color-white);;
+
+}
+
+#central-letter-group > text:hover {
+  fill: var(--color-yellow);
+
+}
+
+text:hover {
+  cursor: pointer;
+}
+
+
+/* Buttons, icons, inputs */
+
+button {
+  font-family: var(--font-assets);
+  font-size: calc(0.6rem + 1vw);
+  background-color: var(--color-graphite);
+  color: var(--color-white);;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+#buttonCopyOrShareResult{
+  width: max-content;
+  height: max-content;
+  animation: grow-shrink 2s linear;
+}
+
+#buttonCopyOrShareWordDef{
+  background-color: var(--color-white);
+  border: none;
+  font-size: calc(0.9rem + 1vw);
+}
+
+#buttonBeeRegenerate {
+  background-color: transparent;
+  border: none;
+}
+
+#github-icon {
+  width: calc(2rem + 1vw);
+  height: auto;
+  fill: rebeccapurple;
+  position: fixed;
+  top: calc(1rem + 1vw);
+  right: calc(1rem + 1vw);
+  animation: grow-shrink 2s linear;
+}
+
+input {
+  width: 100%;
+  font-family: var(--font-handwriting);
+  font-size: calc(0.6rem + 1vw);
+  background-color: var(--color-white);;
+  color: var(--color-graphite);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  outline: none;
+}
+
+#input-section {
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#word-list-ul {
+  min-height: 18vw;
+  column-count: 3;
+  font-family: var(--font-handwriting);
+  font-size: calc(0.6rem + 1vw);
+  background-color: var(--color-white);;
+  padding: 0.5rem;
+  border: 0.2rem solid var(--color-graphite);
+  border-radius: 0.5rem;
+  resize: none;
+  outline: none;
+}
+
+#score-area {
+  width: 100%;
+  font-size: calc(0.6rem + 1vw);
+  font-family: var(--font-handwriting);
+  font-size: calc(0.6rem + 1vw);
+  background-color: var(--color-white);
+  padding: 0.5rem;
+  border: 0.2rem solid var(--color-graphite);
+  border-radius: 0.5rem;
+}
+
+
+/* Footer */
+
+cdc-footer {
+  font-size: calc(0.1rem + 1vw);
+}
+
+footer {
+  margin-top: calc(0.7rem + 1vw);
+  opacity: 0.7;
+}
+
+
+/* Dialogs */
+
+dialog {
+  background-color: var(--color-white);
+  border-radius: 0.5rem;
+}
+
+/* Dialog instructions */
+
+#dialog-instructions{
+  top: 8%;
+  font-size: calc(0.8rem + 1vw);
+  margin: calc(1.5rem + 1vw);
+  padding: calc(5rem + 1vw) calc(2rem + 1vw) calc(10rem + 1vw) calc(2rem + 1vw);
+}
+
+/* Instructions */
+
+@counter-style bee {
+  system: cyclic;
+  symbols: "🐝";
+  suffix: " ";
+}
+
+.instructions {
+  list-style-type: bee;
+  line-height: 1.5;
+  font-family: var(--font-copy);
+  font-size: calc(0.5rem + 1vw);
+}
+
+#combShare {
+  visibility: collapse;
+}
+
+
+/* Animations */
 
 @keyframes fly {
   0% {
@@ -250,67 +417,6 @@ h6 {
   }
 }
 
-/* Comb */
-
-#comb {
-  width: calc(20rem + 10vw);
-  justify-self: center;
-}
-
-svg {
-  width: 20vw;
-  height: auto;
-}
-
-
-svg > g > text:hover {
-  fill: var(--color-yellow);
-}
-
-.st3:hover {
-  fill: var(--color-yellow);
-}
-
-
-#central-letter-group > text {
-  fill: var(--color-white);;
-
-}
-
-#central-letter-group > text:hover {
-  fill: var(--color-yellow);
-
-}
-
-text:hover {
-  cursor: pointer;
-}
-
-
-/* Buttons, */
-
-button {
-  font-family: var(--font-assets);
-  font-size: calc(0.6rem + 1vw);
-  background-color: var(--color-graphite);
-  color: var(--color-white);;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  cursor: pointer;
-}
-
-#buttonCopyOrShareResult{
-  width: max-content;
-  height: max-content;
-  animation: grow-shrink 2s linear;
-}
-
-#buttonCopyOrShareWordDef{
-  background-color: var(--color-white);
-  font-size: calc(0.9rem + 1vw);
-  animation: grow-shrink 2s linear;
-}
-
 @keyframes grow-shrink {
   0% {
     transform: scale(1);
@@ -322,117 +428,15 @@ button {
 
   100% {
     transform: scale(1);
-  }  
+  }
 }
 
-#buttonBeeRegenerate {
-  background-color: transparent;
-  border: none;
-}
-
-input {
-  width: 100%;
-  font-family: var(--font-handwriting);
-  font-size: calc(0.6rem + 1vw);
-  background-color: var(--color-white);;
-  color: var(--color-graphite);
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  outline: none;
-}
-
-#input-section {
-  margin-top: 1.2rem;
-  display: flex;
-  gap: 1rem;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#word-list-ul {
-  font-family: var(--font-handwriting);
-  font-size: calc(0.6rem + 1vw);
-  background-color: var(--color-white);;
-  padding: 0.5rem;
-  border: 0.2rem solid var(--color-graphite);
-  border-radius: 0.5rem;
-  resize: none;
-  outline: none;
-}
-
-#word-list-ul {
-  min-height: 18vw;
-  column-count: 3;
-}
-
-
-/* Footer */
-
-cdc-footer {
-  font-size: calc(0.1rem + 1vw);
-}
-
-
-footer {
-  margin-top: calc(0.5rem + 1vw);
-  opacity: 0.7;
-  animation: slide-upwards 1s, change_opacity 3s;
-}
-
-@keyframes slide-upwards {
+@keyframes drop_into_view {
   0% {
-    transform: translateY(100%);
+    transform: translateY(-100%);
   }
 
   100% {
     transform: translateY(0%);
   }
-}
-
-@keyframes change_opacity {
-  0% {
-    opacity: 0.1;
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0.7;
-  }
-}
-
-
-/* Dialogs */
-
-dialog {
-  background-color: var(--color-white);
-  border-radius: 0.5rem;
-}
-
-/* Dialog instructions */
-
-#dialog-instructions{
-  top: 8%;
-  font-size: calc(0.8rem + 1vw);
-  margin: calc(1.5rem + 1vw);
-  padding: calc(5rem + 1vw) calc(2rem + 1vw) calc(10rem + 1vw) calc(2rem + 1vw);
-}
-
-/* Instructions */
-
-@counter-style bee {
-  system: cyclic;
-  symbols: "🐝";
-  suffix: " ";
-}
-
-.instructions {
-  list-style-type: bee;
-  font-family: var(--font-copy);
-}
-
-#combShare {
-  visibility: collapse;
 }

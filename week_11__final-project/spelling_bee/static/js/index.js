@@ -48,6 +48,19 @@ window.onload = function () {
     }
   }
 
+
+  const scoreArea = document.getElementById('score-area');
+  const score = scoreArea.innerText;
+  const sectionResults = document.getElementById('results');
+
+  if (score > 0) {
+    sectionResults.style.display = 'block';
+  } else {
+    sectionResults.style.display = 'none';
+  }
+
+
+
   // Setup buttons according to availability status of the Web Share API:
   function setupButton(buttonId, clickHandler) {
     const button = document.getElementById(buttonId);
@@ -95,8 +108,10 @@ window.onload = function () {
             text: textToShare,
             files: imageToShare
           })
+          console.log("Shared");
         } else {
           navigator.clipboard.writeText(`${textToShare} ${randomSevenToShare}`);
+          console.log("Copied");
         }
       });
     };
@@ -104,7 +119,6 @@ window.onload = function () {
     img.src = URL.createObjectURL(svgBlob);
 
   }
-
   setupButton('buttonCopyOrShareResult', eitherCopyOrShareResult);
 }
 

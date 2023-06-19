@@ -25,7 +25,8 @@
 }
 
 
-/*RESETS*/:root
+/*RESETS*/
+:root
 {
   margin: 0;
   padding: 0;
@@ -78,7 +79,7 @@ footer {
 
 main {
   display: grid;
-  grid-template-areas: "list comb input" "list comb definition" "list comb scores" "instructions instructions .";
+  grid-template-areas: "list comb input" "list comb scores" "list comb shareResults" "instructions instructions .";
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 15rem 1fr 10rem 20rem;
   row-gap: 2rem;
@@ -88,14 +89,14 @@ main {
 
 @media (max-width: 768px) {
   body {
-    row-gap: 1rem;
+    row-gap: 0.5rem;
   }
 
   main {
-    grid-template-areas: "comb comb" "input input" "definition scores" "list list" "instructions instructions";
+    grid-template-areas: "comb comb" "input input" "scores shareResults" "list list" "instructions instructions";
     grid-template-columns: 1fr 10rem;
     grid-template-rows: auto;
-    row-gap: 1rem;
+    row-gap: 2rem;
   }
 
   #input-heading {
@@ -115,6 +116,10 @@ main {
 
   }
 
+  #buttonCopyOrShareResult {
+  grid-area: shareResults;
+  }
+
   #instructions {
     grid-area: instructions;
     align-self: self-start;
@@ -132,8 +137,8 @@ main {
   margin-top: 1rem;
 }
 
-#definition-section {
-  grid-area: definition;
+#buttonCopyOrShareResult {
+  grid-area: shareResults;
 }
 
 #word-list {
@@ -294,12 +299,30 @@ button {
   cursor: pointer;
 }
 
-#shareButton {
-  display: none;
+#buttonCopyOrShareResult{
+  width: max-content;
+  height: max-content;
+  animation: grow-shrink 2s linear;
 }
 
-#copyToClipboard {
-  display: none;
+#buttonCopyOrShareWordDef{
+  background-color: var(--color-white);
+  font-size: calc(0.9rem + 1vw);
+  animation: grow-shrink 2s linear;
+}
+
+@keyframes grow-shrink {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }  
 }
 
 #buttonBeeRegenerate {
@@ -326,7 +349,6 @@ input {
   align-items: center;
 }
 
-#definition-area,
 #word-list-ul {
   font-family: var(--font-handwriting);
   font-size: calc(0.6rem + 1vw);
@@ -338,22 +360,9 @@ input {
   outline: none;
 }
 
-#definition-area {
-  max-height: 8vw;
-  width: 100%;
-  overflow-y: scroll;
-}
-
 #word-list-ul {
   min-height: 18vw;
   column-count: 3;
-}
-
-#definition-wrapper, #score-wrapper {
-  display: flex;
-  gap: 1rem;
-  justify-content: space-between;
-  align-items: center;
 }
 
 

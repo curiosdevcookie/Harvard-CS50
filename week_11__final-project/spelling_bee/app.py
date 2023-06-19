@@ -66,13 +66,14 @@ def index_get():
 
     c.execute("SELECT word FROM wordlist")
     word_rows = c.fetchall()
-
+    
     for row in word_rows:
         word = get_word_from_wordlist(row[0])
         if word:
             words.append(word)
-            your_score = your_score + highscore(word)
-
+            your_score += highscore(word)
+            if is_pangram(word):
+                your_score += 100
     conn.close()
 
     return render_template('index.html', random_seven=random_seven, words_results=words_results, b1=b1, b2=b2, b3=b3, b4=b4, b5=b5, b6=b6, b7=b7, definition=session.get('definition'), word=session.get('word'), words=words, your_score=your_score)
@@ -94,10 +95,14 @@ def index_post():
     if term not in words_results:
         flash(f"{term} was not found in the dictionary 🤔", "error")
         return redirect("/")
-    # if term was already found:
     if get_word_from_wordlist(term):
         flash(f"The word {term} was already found ✅", "error")
         return redirect("/")
+    if is_pangram(term):
+        flash(f"Nice! You found a pangram! 🐝", "success")
+        insert_word_and_points(term)
+        return redirect("/")
+
     insert_word_and_points(term)
     get_definition(term)
     get_word_from_wordlist(term)
@@ -142,7 +147,7 @@ def index_post():
     '''
 
     # Wrap the success message in Markup to avoid HTML escaping
-    success_message = Markup(f"The word {wordToShare} was found 🤘 with this definition '{definitionToShare}' {share_button_html}")
+    success_message = Markup(f"The word {wordToShare} was found 🤘 \n Definition: '{definitionToShare}' {share_button_html}")
     flash(success_message, "success")
 
     return redirect("/")
@@ -169,8 +174,11 @@ def insert_word_and_points(term):
     if existing_row:
         print(f"The word '{term}' already exists in the database.")
     else:
+        score = highscore(term)
+        if is_pangram(term):
+            score += 100
         # Insert a word and its points into the table
-        c.execute('INSERT INTO wordlist VALUES (?, ?)', (term, highscore(term)))
+        c.execute('INSERT INTO wordlist VALUES (?, ?)', (term, score))
 
     conn.commit()
     conn.close()
@@ -271,3 +279,7 @@ def highscore(word):
     points = sum(letter_scores.get(letter, 0) for letter in word)
 
     return points
+
+def is_pangram(term):
+    random_seven = session.get('random_seven')
+    return all(char in term for char in random_seven)

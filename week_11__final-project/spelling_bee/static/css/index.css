@@ -95,7 +95,7 @@ main {
   }
 
   footer {
-    margin-top: -3rem;
+    margin-top: -0.5rem;
   }
 
   main {
@@ -322,7 +322,7 @@ input {
   font-family: var(--font-handwriting);
   font-size: calc(4rem + 1vw);
   color: var(--color-rebeccapurple);
-  animation: fade-in-out 2s linear, drop_into_view 5s linear;
+  animation: fade-in-out 2s linear, fly_into_view 5s linear;
   opacity: 0;
 }
 
@@ -442,6 +442,16 @@ dialog {
 }
 
 @keyframes drop_into_view {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes fly_into_view {
   0% {
     transform: translateY(0%);
   }

@@ -26,7 +26,6 @@ The game is played as follows:
   - [Configuration](#configuration)
   - [Run the app](#run-the-app)
 - [Run the app via Docker](#run-the-app-via-docker)
-  - [Configuration](#configuration-1)
   - [Installation](#installation-1)
   - [Run the app](#run-the-app-1)
 
@@ -69,14 +68,6 @@ flask run -p 8000
 You can now access the app on `http://127.0.0.1:8000/`.
 
 ## Run the app via docker
-
-### Configuration
-
-In `app.py`, set the variable `is_local` to `False`.
-
-```python
-is_local = False
-```
 
 ### Installation
 

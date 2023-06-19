@@ -35,6 +35,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 # Copy the source code into the container.
 COPY . .
+# Copy the `app.py` file to `app.py.bak` in the container and replace the `is_local = True` value in `app.py.bak` with `is_local = False` and write the result to `app.py`.
 RUN cp app.py app.py.bak \
     && sed 's/is_local = True/is_local = False/g' app.py.bak > app.py
 RUN chmod +x ./run.sh \

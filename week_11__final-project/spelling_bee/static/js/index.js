@@ -24,7 +24,7 @@ function deleteLetter() {
   input.value = input.value.slice(0, -1);
 }
 
-window.onload = function () {
+window.addEventListener('DOMContentLoaded', function () {
 
   showInstructionsDialog();
 
@@ -33,6 +33,7 @@ window.onload = function () {
   showPangramPoints();
 
   showBeeOnce();
+
   function showInstructionsDialog() {
     const dialog = document.getElementById('dialog-instructions');
     const closeButton = document.getElementById('close-dialog');
@@ -142,14 +143,13 @@ window.onload = function () {
     const bee = document.getElementById('beeOne');
     if (!sessionStorage.getItem('beeShown')) {
       if (window.innerWidth <= 768) {
-        // Add class for smaller screens:
-        document.getElementById('beeOne').classList.add('fly-small-screens 13s');
+        // Add class for smaller screens and set animation duration
+        bee.style.animation = 'fly-small-screens 13s';
       } else {
-        // Add class for larger screens:
-        document.getElementById('beeOne').classList.add('fly-large-screens 13s');
+        // Add class for larger screens and set animation duration
+        bee.style.animation = 'fly-large-screens 13s';
       }
-
-      sessionStorage.setItem('beeShown', true);
+      sessionStorage.setItem('beeShown', 'true');
     }
   }
-}
+});

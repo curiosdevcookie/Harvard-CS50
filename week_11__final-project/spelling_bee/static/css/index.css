@@ -204,6 +204,7 @@ h6 {
   right: 85%;
   animation: jiggle 1s infinite;
 }
+
 @keyframes fly-small-screens {
   0% {
     top: 30%;

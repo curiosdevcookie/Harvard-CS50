@@ -95,7 +95,7 @@ main {
   }
 
   footer {
-    margin-top: -0.5rem;
+    margin-top: -1rem;
   }
 
   main {
@@ -136,8 +136,14 @@ main {
     align-self: self-start;
     display: none;
   }
-}
 
+ #beeOne {
+    position: absolute;
+    top: 63%;
+    left: 72%;
+    animation: jiggle 1s infinite;
+  }
+}
 
 #comb {
   grid-area: comb;
@@ -186,17 +192,14 @@ h6 {
   margin: 0;
 }
 
-
 /* Bee */
 
 #beeOne {
-  width: calc(5rem + 10vw);
   position: absolute;
-  top: -30%;
-  right: -10%;
-  animation: fly 13s, jiggle 1s infinite;
+  top: 10%;
+  right: 68%;
+  animation: jiggle 1s infinite;
 }
-
 
 /* Comb */
 
@@ -373,38 +376,6 @@ dialog {
 
 /* Animations */
 
-@keyframes fly {
-  0% {
-    top: 30%;
-    right: -20%;
-  }
-
-  20% {
-    top: 20%;
-    right: 5%;
-  }
-
-  40% {
-    top: 15%;
-    right: 10%;
-  }
-
-  60% {
-    top: 30%;
-    right: 35%;
-  }
-
-  80% {
-    top: 60%;
-    right: 60%;
-  }
-
-  100% {
-    top: 30%;
-    right: 100%;
-  }
-}
-
 @keyframes jiggle {
   0% {
     transform: rotate(0deg);
@@ -465,7 +436,6 @@ dialog {
   }
 }
 
-
 @keyframes fade-in-out {
   0% {
     opacity: 0;
@@ -475,5 +445,70 @@ dialog {
   }
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes fly-small-screens {
+  0% {
+    top: 30%;
+    left: -20%;
+  }
+
+  20% {
+    top: 20%;
+    left: 5%;
+  }
+
+  40% {
+    top: 30%;
+    left: 10%;
+  }
+
+  60% {
+    top: 60%;
+    left: 35%;
+  }
+
+  80% {
+    top: 70%;
+    left: 50%;
+  }
+
+  100% {
+    top: 10%;
+    left: 72%;
+  }
+}
+
+
+@keyframes fly-large-screens {
+  0% {
+    top: 30%;
+    right: -20%;
+  }
+
+  20% {
+    top: 20%;
+    right: 5%;
+  }
+
+  40% {
+    top: 30%;
+    right: 10%;
+  }
+
+  60% {
+    top: 50%;
+    right: 35%;
+  }
+
+  80% {
+    top: 60%;
+    right: 60%;
+  }
+
+  100% {
+    top: 10%;
+    right: 68%;
   }
 }

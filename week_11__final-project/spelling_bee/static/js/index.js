@@ -32,7 +32,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   showPangramPoints();
 
-  showBeeOnce();
+  animateBeeOncePerScreensize();
 
   function showInstructionsDialog() {
     const dialog = document.getElementById('dialog-instructions');
@@ -139,15 +139,22 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
   // Show the bee animation only once per session:
-  function showBeeOnce() {
+  function animateBeeOncePerScreensize() {
     const bee = document.getElementById('beeOne');
+    const beeInnerWrapper = document.getElementById('beeOneInnerWrapper');
     if (!sessionStorage.getItem('beeShown')) {
       if (window.innerWidth <= 768) {
         // Add class for smaller screens and set animation duration
-        bee.style.animation = 'fly-small-screens 13s';
+        bee.style.animation = 'fly-small-screens 3s, jiggle 1s infinite';
+        bee.style.top = '10%';
+        bee.style.left = '72%';
+        beeInnerWrapper.setAttribute('transform', 'rotate(90 50 50)');
+
       } else {
         // Add class for larger screens and set animation duration
-        bee.style.animation = 'fly-large-screens 13s';
+        bee.style.animation = 'fly-large-screens 13s, jiggle 1s infinite';
+        bee.style.top = '10%';
+        bee.style.right = '68%';
       }
       sessionStorage.setItem('beeShown', 'true');
     }

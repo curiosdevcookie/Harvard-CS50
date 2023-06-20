@@ -41,7 +41,7 @@ pip install -r requirements.txt
 
 ### Set up the database
 
-To install the database, you need to run the following commands in your terminal:
+To install the database, you need to run the following command in your terminal:
 
 ```bash
 wget "https://dl.dropboxusercontent.com/s/ooctnlclt9bdmeu/dictionary.db" -O dictionary.db
@@ -49,13 +49,13 @@ wget "https://dl.dropboxusercontent.com/s/ooctnlclt9bdmeu/dictionary.db" -O dict
 
 ### Configuration
 
-Set the variable `is_local` to `True`.
+In your `app.py` file, set the `is_local` variable to `True`:
 
 ```python
 is_local = True
 ```
 
-This is important for app to choose the correct path to the database.
+This is important for the app to choose the correct path to the database.
 
 ### Run the app
 

@@ -95,7 +95,7 @@ main {
   }
 
   footer {
-    margin-top: -0.5rem;
+    margin-top: -1rem;
   }
 
   main {
@@ -135,6 +135,14 @@ main {
     grid-area: instructions;
     align-self: self-start;
     display: none;
+  }
+
+  #beeOne {
+    width: 2rem;
+    position: absolute;
+    top: 5%;
+    right: 85%;
+    animation: jiggle 1s infinite;
   }
 }
 
@@ -190,13 +198,75 @@ h6 {
 /* Bee */
 
 #beeOne {
-  width: calc(5rem + 10vw);
+  width: 5rem;
   position: absolute;
-  top: -30%;
-  right: -10%;
-  animation: fly 13s, jiggle 1s infinite;
+  top: 5%;
+  right: 85%;
+  animation: jiggle 1s infinite;
+}
+@keyframes fly-small-screens {
+  0% {
+    top: 30%;
+    right: -20%;
+  }
+
+  20% {
+    top: 20%;
+    right: 5%;
+  }
+
+  40% {
+    top: 15%;
+    right: 10%;
+  }
+
+  60% {
+    top: 30%;
+    right: 35%;
+  }
+
+  80% {
+    top: 60%;
+    right: 60%;
+  }
+
+  100% {
+    top: 5%;
+    right: 85%;
+  }
 }
 
+@keyframes fly-large-screens {
+  0% {
+    top: 30%;
+    right: -20%;
+  }
+
+  20% {
+    top: 20%;
+    right: 5%;
+  }
+
+  40% {
+    top: 15%;
+    right: 10%;
+  }
+
+  60% {
+    top: 30%;
+    right: 35%;
+  }
+
+  80% {
+    top: 60%;
+    right: 60%;
+  }
+
+  100% {
+    top: 5%;
+    right: 85%;
+  }
+}
 
 /* Comb */
 
@@ -373,37 +443,7 @@ dialog {
 
 /* Animations */
 
-@keyframes fly {
-  0% {
-    top: 30%;
-    right: -20%;
-  }
 
-  20% {
-    top: 20%;
-    right: 5%;
-  }
-
-  40% {
-    top: 15%;
-    right: 10%;
-  }
-
-  60% {
-    top: 30%;
-    right: 35%;
-  }
-
-  80% {
-    top: 60%;
-    right: 60%;
-  }
-
-  100% {
-    top: 30%;
-    right: 100%;
-  }
-}
 
 @keyframes jiggle {
   0% {

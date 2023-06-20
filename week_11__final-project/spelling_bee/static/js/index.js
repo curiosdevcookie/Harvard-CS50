@@ -27,6 +27,12 @@ function deleteLetter() {
 window.onload = function () {
 
   showInstructionsDialog();
+
+  setupButton('buttonCopyOrShareResult', eitherCopyOrShareResult);
+
+  showPangramPoints();
+
+  showBeeOnce();
   function showInstructionsDialog() {
     const dialog = document.getElementById('dialog-instructions');
     const closeButton = document.getElementById('close-dialog');
@@ -47,6 +53,7 @@ window.onload = function () {
       dialog.style.display = 'none';
     }
   }
+
 
 
   const scoreArea = document.getElementById('score-area');
@@ -119,9 +126,8 @@ window.onload = function () {
     img.src = URL.createObjectURL(svgBlob);
 
   }
-  setupButton('buttonCopyOrShareResult', eitherCopyOrShareResult);
 
-
+  // Show the pangram bonus points:
   function showPangramPoints() {
     const pElement = document.querySelector('dialog p');
     if (pElement && pElement.textContent.includes('🐝')) {
@@ -130,5 +136,20 @@ window.onload = function () {
     }
   }
 
-  showPangramPoints();
+
+  // Show the bee animation only once per session:
+  function showBeeOnce() {
+    const bee = document.getElementById('beeOne');
+    if (!sessionStorage.getItem('beeShown')) {
+      if (window.innerWidth <= 768) {
+        // Add class for smaller screens:
+        document.getElementById('beeOne').classList.add('fly-small-screens 13s');
+      } else {
+        // Add class for larger screens:
+        document.getElementById('beeOne').classList.add('fly-large-screens 13s');
+      }
+
+      sessionStorage.setItem('beeShown', true);
+    }
+  }
 }

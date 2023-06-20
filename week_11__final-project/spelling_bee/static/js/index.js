@@ -145,7 +145,7 @@ window.addEventListener('DOMContentLoaded', function () {
     if (!sessionStorage.getItem('beeShown')) {
       if (window.innerWidth <= 768) {
         // Add class for smaller screens and set animation duration
-        bee.style.animation = 'fly-small-screens 3s, jiggle 1s infinite';
+        bee.style.animation = 'fly-small-screens 13s, jiggle 1s infinite';
         bee.style.top = '10%';
         bee.style.left = '72%';
         beeInnerWrapper.setAttribute('transform', 'rotate(90 50 50)');

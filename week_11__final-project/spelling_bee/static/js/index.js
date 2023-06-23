@@ -141,22 +141,47 @@ window.addEventListener('DOMContentLoaded', function () {
   // Show the bee animation only once per session:
   function animateBeeOncePerScreensize() {
     const bee = document.getElementById('beeOne');
+    const beeThoughtWrapper = document.getElementById('beeThoughtWrapper');
     const beeInnerWrapper = document.getElementById('beeOneInnerWrapper');
+    const thoughtBubble = document.getElementById('thoughtBubble');
+
     if (!sessionStorage.getItem('beeShown')) {
       if (window.innerWidth <= 768) {
         // Add class for smaller screens and set animation duration
-        bee.style.animation = 'fly-small-screens 13s, jiggle 1s infinite';
-        bee.style.top = '10%';
-        bee.style.left = '72%';
+        bee.style.animation = 'jiggle 1s infinite';
+        beeThoughtWrapper.style.animation = 'fly-small-screens 13s';
+        beeThoughtWrapper.style.top = '10%';
+        beeThoughtWrapper.style.left = '72%';
         beeInnerWrapper.setAttribute('transform', 'rotate(90 50 50)');
+        thoughtBubble.style.bottom = '40%';
+        thoughtBubble.setAttribute('transform', 'translate (25, 50)');
+        beeThoughtWrapper.addEventListener('animationend', showHideThoughtBubble);
 
       } else {
         // Add class for larger screens and set animation duration
-        bee.style.animation = 'fly-large-screens 13s, jiggle 1s infinite';
-        bee.style.top = '10%';
-        bee.style.right = '68%';
+        bee.style.animation = 'jiggle 1s infinite';
+        beeThoughtWrapper.style.animation = 'fly-large-screens 13s';
+        beeThoughtWrapper.style.top = '10%';
+        beeThoughtWrapper.style.right = '68%';
+        thoughtBubble.style.bottom = '50%';
+        thoughtBubble.style.left = '30%';
+        bee.addEventListener('mouseenter', showHideThoughtBubble);
+
       }
       sessionStorage.setItem('beeShown', 'true');
     }
   }
+
+
+  // Show/Hide thought bubble:
+  function showHideThoughtBubble() {
+    const bubble = document.getElementById('thoughtBubble');
+    bubble.style.display = 'block';
+
+    setTimeout(function () {
+      bubble.style.display = 'none';
+    }, 2500);
+  }
+
 });
+

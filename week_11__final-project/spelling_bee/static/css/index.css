@@ -195,10 +195,18 @@ h6 {
 /* Bee */
 
 #beeOne {
+  animation: jiggle 1s infinite;
+}
+
+#beeThoughtWrapper {
   position: absolute;
   top: 10%;
   right: 68%;
-  animation: jiggle 1s infinite;
+}
+
+#thoughtBubble {
+  display: none;
+  position: absolute;
 }
 
 /* Comb */
@@ -450,7 +458,7 @@ dialog {
 
 @keyframes fly-small-screens {
   0% {
-    top: 30%;
+    top: -30%;
     left: -20%;
   }
 

@@ -150,7 +150,7 @@ window.addEventListener('DOMContentLoaded', function () {
         // Add class for smaller screens and set animation duration
         bee.style.animation = 'jiggle 1s infinite';
         beeThoughtWrapper.style.animation = 'fly-small-screens 13s';
-        beeThoughtWrapper.style.top = '10%';
+        beeThoughtWrapper.style.top = '20%';
         beeThoughtWrapper.style.left = '72%';
         beeInnerWrapper.setAttribute('transform', 'rotate(90 50 50)');
         thoughtBubble.style.bottom = '40%';
@@ -161,10 +161,11 @@ window.addEventListener('DOMContentLoaded', function () {
         // Add class for larger screens and set animation duration
         bee.style.animation = 'jiggle 1s infinite';
         beeThoughtWrapper.style.animation = 'fly-large-screens 13s';
-        beeThoughtWrapper.style.top = '10%';
+        beeThoughtWrapper.style.top = '20%';
         beeThoughtWrapper.style.right = '68%';
         thoughtBubble.style.bottom = '50%';
         thoughtBubble.style.left = '30%';
+        beeThoughtWrapper.addEventListener('animationend', showHideThoughtBubble);
         bee.addEventListener('mouseenter', showHideThoughtBubble);
 
       }

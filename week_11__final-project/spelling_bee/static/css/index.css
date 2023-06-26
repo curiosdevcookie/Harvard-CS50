@@ -137,12 +137,18 @@ main {
     display: none;
   }
 
- #beeOne {
+  /* Bee smaller screens */
+  #beeOne {
     position: fixed;
-    top: 10%;
-    left: 62%;
+    top: 15%;
+    left: 65%;
     animation: jiggle 1s infinite;
     z-index: 2;
+    }
+  
+  #thoughtBubble {
+    display: none;
+    position: fixed;
   }
 }
 
@@ -211,7 +217,7 @@ h6 {
 #thoughtBubble {
   display: none;
   position: absolute;
-  width: calc(10rem + 10vw);
+  width: calc(7rem + 10vw);
 }
 
 /* Comb */
@@ -221,9 +227,6 @@ h6 {
   justify-self: center;
 }
 
-
-
-
 svg > g > text:hover {
   fill: var(--color-yellow);
 }
@@ -232,15 +235,12 @@ svg > g > text:hover {
   fill: var(--color-yellow);
 }
 
-
 #central-letter-group > text {
   fill: var(--color-white);;
-
 }
 
 #central-letter-group > text:hover {
   fill: var(--color-yellow);
-
 }
 
 text:hover {
@@ -278,12 +278,12 @@ button {
 }
 
 #github-icon {
+  position: absolute;
+  top: calc(1rem + 1vw);
+  right: calc(1rem + 1vw);
   width: calc(2rem + 1vw);
   height: auto;
   fill: var(--color-rebeccapurple);
-  position: fixed;
-  top: calc(1rem + 1vw);
-  right: calc(1rem + 1vw);
   animation: grow-shrink 2s linear;
 }
 
@@ -491,8 +491,8 @@ dialog {
   }
 
   100% {
-    top: 10%;
-    left: 62%;
+    top: 15%;
+    left: 55%;
   }
 }
 

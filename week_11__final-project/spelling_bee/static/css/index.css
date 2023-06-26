@@ -142,6 +142,7 @@ main {
     top: 63%;
     left: 72%;
     animation: jiggle 1s infinite;
+    z-index: 1;
   }
 }
 
@@ -195,18 +196,21 @@ h6 {
 /* Bee */
 
 #beeOne {
+  width: calc(5rem + 5vw);
   animation: jiggle 1s infinite;
+  z-index: 15;
 }
 
 #beeThoughtWrapper {
   position: absolute;
-  top: 10%;
+  top: 20%;
   right: 68%;
 }
 
 #thoughtBubble {
   display: none;
   position: absolute;
+  width: calc(10rem + 10vw);
 }
 
 /* Comb */
@@ -216,10 +220,7 @@ h6 {
   justify-self: center;
 }
 
-svg {
-  width: 20vw;
-  height: auto;
-}
+
 
 
 svg > g > text:hover {
@@ -285,6 +286,11 @@ button {
   animation: grow-shrink 2s linear;
 }
 
+.icon-info-definition {
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
 input {
   width: 100%;
   font-family: var(--font-handwriting);
@@ -306,11 +312,12 @@ input {
 
 #word-list-ul {
   min-height: 18vw;
-  column-count: 3;
+  column-count: 2;
+  column-fill: auto;
   font-family: var(--font-handwriting);
   font-size: calc(0.6rem + 1vw);
   background-color: var(--color-white);;
-  padding: 0.5rem;
+  padding: calc(0.5rem + 1vw);
   border: 0.2rem solid var(--color-graphite);
   border-radius: 0.5rem;
   resize: none;
@@ -483,7 +490,7 @@ dialog {
   }
 
   100% {
-    top: 10%;
+    top: 20%;
     left: 72%;
   }
 }
@@ -516,7 +523,7 @@ dialog {
   }
 
   100% {
-    top: 10%;
+    top: 20%;
     right: 68%;
   }
 }

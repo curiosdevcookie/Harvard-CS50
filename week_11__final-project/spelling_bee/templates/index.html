@@ -30,7 +30,7 @@
       <form action='/regenerate' method='post'>
         <div id="beeThoughtWrapper">
           <button id='buttonBeeRegenerate' type='submit'>
-            <svg version='1.1' id='beeOne' xmlns="http://www.w3.org/2000/svg" viewBox='0 0 200 200'>
+            <svg version='1.1' id='beeOne' xmlns="http://www.w3.org/2000/svg" viewBox='0 0 100 100'>
               <g id='beeOneInnerWrapper'>
                 <title>Illustration of a Bee</title>
                 <defs>
@@ -287,7 +287,7 @@
       
       <section id = "results">
         <p>Finsihed playing?</p>
-        <button id="buttonCopyOrShareResult" type="button">Text 
+        <button id="buttonCopyOrShareResult" type="button">Text
         </button>
       </section>
       
@@ -295,10 +295,18 @@
         <h2>Word List</h2>
         <ul id='word-list-ul'>
           {% for word in words %}
-          <li>{{ word }}</li>
+            <li>{{ word }}<span class='icon-info-definition'>ℹ️</span></li>
           {% endfor %}
         </ul>
       </section>
+
+      <dialog id="dialog-info-definition">
+        <h3>Definition</h3>
+        <p>{{ definition }}</p>
+        <form method="dialog">
+          <button value="default">Ok</button>
+        </form>
+      </dialog>
 
       <section id='instructions'>
         <h2>Instructions</h2>

@@ -148,14 +148,15 @@ window.addEventListener('DOMContentLoaded', function () {
     if (!sessionStorage.getItem('beeShown')) {
       if (window.innerWidth <= 768) {
         // Add class for smaller screens and set animation duration
-        bee.style.position = 'absolute';
+        bee.style.position = 'relative';
         bee.style.animation = 'jiggle 1s infinite';
         beeThoughtWrapper.style.animation = 'fly-small-screens 13s';
-        beeThoughtWrapper.style.top = '10%';
-        beeThoughtWrapper.style.left = '62%';
-        beeInnerWrapper.setAttribute('transform', 'rotate(90 50 50)');
-        thoughtBubble.style.bottom = '40%';
+        beeThoughtWrapper.style.top = '15%';
+        beeThoughtWrapper.style.left = '55%';
+        thoughtBubble.style.bottom = '50%';
+        thoughtBubble.style.transform = 'translateX(75%)';
         thoughtBubble.setAttribute('transform', 'translate (25, 50)');
+        beeInnerWrapper.setAttribute('transform', 'rotate(90 50 50)');
         beeThoughtWrapper.addEventListener('animationend', showHideThoughtBubble);
 
       } else {
@@ -201,9 +202,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   const dialogInfoDefinition = document.getElementById('dialog-info-definition');
 
-
   function showDialog() {
     dialogInfoDefinition.show();
   }
-
 });

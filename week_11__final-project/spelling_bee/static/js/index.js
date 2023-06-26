@@ -183,5 +183,25 @@ window.addEventListener('DOMContentLoaded', function () {
     }, 2500);
   }
 
-});
+  // Show/hide definition:
 
+  const iconInfoDefinition = document.getElementsByClassName('icon-info-definition');
+
+  if (iconInfoDefinition) {
+    // Convert the collection to an array
+    const iconInfoArray = Array.from(iconInfoDefinition);
+
+    // Map over the array and add the event listener to each element
+    iconInfoArray.forEach(element => {
+      element.addEventListener('click', showDialog);
+    });
+  };
+
+  const dialogInfoDefinition = document.getElementById('dialog-info-definition');
+
+
+  function showDialog() {
+    dialogInfoDefinition.show();
+  }
+
+});

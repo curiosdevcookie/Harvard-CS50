@@ -148,10 +148,11 @@ window.addEventListener('DOMContentLoaded', function () {
     if (!sessionStorage.getItem('beeShown')) {
       if (window.innerWidth <= 768) {
         // Add class for smaller screens and set animation duration
+        bee.style.position = 'absolute';
         bee.style.animation = 'jiggle 1s infinite';
         beeThoughtWrapper.style.animation = 'fly-small-screens 13s';
-        beeThoughtWrapper.style.top = '20%';
-        beeThoughtWrapper.style.left = '72%';
+        beeThoughtWrapper.style.top = '10%';
+        beeThoughtWrapper.style.left = '62%';
         beeInnerWrapper.setAttribute('transform', 'rotate(90 50 50)');
         thoughtBubble.style.bottom = '40%';
         thoughtBubble.setAttribute('transform', 'translate (25, 50)');

@@ -359,6 +359,7 @@ cdc-footer {
 dialog {
   background-color: var(--color-white);
   border-radius: 0.5rem;
+  margin: 1rem;
 }
 
 /* Dialog instructions */

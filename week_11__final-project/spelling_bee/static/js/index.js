@@ -34,6 +34,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
   animateBeeOncePerScreensize();
 
+  closeDialogDefinition();
+
   function showInstructionsDialog() {
     const dialog = document.getElementById('dialog-instructions');
     const closeButton = document.getElementById('close-dialog');
@@ -215,4 +217,18 @@ window.addEventListener('DOMContentLoaded', function () {
     const spinner = document.getElementById('spinner');
     spinner.style.display = 'block';
   }
+
+
+  // Close dialog-definition on clicking on the body element:
+  function closeDialogDefinition() {
+    const dialogDefinition = document.getElementById('dialog-definition');
+
+    const body = document.getElementsByTagName('body')[0];
+
+    body.addEventListener('click', function () {
+      dialogDefinition.close();
+    }
+    );
+  }
+
 });

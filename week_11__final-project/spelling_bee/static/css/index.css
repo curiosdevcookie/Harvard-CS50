@@ -144,7 +144,7 @@ main {
     left: 65%;
     animation: jiggle 1s infinite;
     z-index: 2;
-    }
+  }
   
   #thoughtBubble {
     display: none;
@@ -389,8 +389,40 @@ dialog {
   visibility: collapse;
 }
 
+/* Spinner */
+
+#spinner {
+  position: absolute;
+  display: none;
+  width: calc(20rem + 10vw);
+  height: calc(20rem + 10vw);
+  top: calc(16.8vh + (60 - 16.8) * ((100vw - 768px)) / (1920 - 768));
+  border: 1rem solid var(--color-graphite);
+  border-top: 0.5rem solid var(--color-yellow);
+  border-right: 1.5rem solid var(--color-yellow);
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+#spinnerBee {
+  position: relative;
+  width: calc(4rem + 2vw);
+  animation: spin 1s reverse infinite;
+}
+
 
 /* Animations */
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 
 @keyframes jiggle {
   0% {

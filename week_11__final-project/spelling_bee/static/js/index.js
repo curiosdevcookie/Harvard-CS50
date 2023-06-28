@@ -1,15 +1,19 @@
 const letters = ['b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7'];
 
 letters.map((letter) => {
-  const element = document.getElementById(letter);
-  if (element) {
-    element.addEventListener('click', letterValueInput);
+  const textElement = document.getElementById(letter);
+  const polygonElement = document.getElementById(`poly${letter.substring(1)}`);
+
+  if (textElement && polygonElement) {
+    textElement.addEventListener('click', () => letterValueInput(textElement));
+    polygonElement.addEventListener('click', () => letterValueInput(textElement));
   }
 });
 
-function letterValueInput() {
+
+function letterValueInput(textElement) {
   const input = document.getElementById('input-word');
-  const term = this.innerHTML;
+  const term = textElement.innerHTML;
   input.value += term;
   return term;
 }
@@ -224,11 +228,10 @@ window.addEventListener('DOMContentLoaded', function () {
     const dialogDefinition = document.getElementById('dialog-definition');
 
     const body = document.getElementsByTagName('body')[0];
-
-    body.addEventListener('click', function () {
-      dialogDefinition.close();
+    if (dialogDefinition) {
+      body.addEventListener('click', function () {
+        dialogDefinition.close();
+      });
     }
-    );
   }
-
 });

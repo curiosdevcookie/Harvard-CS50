@@ -359,7 +359,6 @@ cdc-footer {
 dialog {
   background-color: var(--color-white);
   border-radius: 0.5rem;
-  margin: 1rem;
 }
 
 /* Dialog instructions */
@@ -369,6 +368,11 @@ dialog {
   font-size: calc(0.8rem + 1vw);
   margin: calc(1.5rem + 1vw);
   padding: calc(5rem + 1vw) calc(2rem + 1vw) calc(10rem + 1vw) calc(2rem + 1vw);
+}
+
+#dialog-definition {
+  margin-top: calc(5rem + 1vw);
+  width: 30vw;
 }
 
 /* Instructions */

@@ -274,20 +274,48 @@ window.addEventListener('DOMContentLoaded', function () {
       // Add the 'dragging' class fpr styling
       beeThoughtWrapper.classList.add('dragging');
 
-      // Add  event listeners for the drag events
-      document.addEventListener('mousemove', dragMove);
-      document.addEventListener('mouseup', dragEnd);
+      // Add event listeners for the drag events
+
+      if (event.type === 'touchstart') {
+        document.addEventListener('touchmove', dragMove);
+        console.log('Event listener for touchmove is registered.');
+        document.addEventListener('touchend', dragEnd);
+        console.log('Event listener for touchend is registered.');
+      } else {
+        document.addEventListener('mousemove', dragMove);
+        console.log('Event listener for mousemove is registered.');
+        document.addEventListener('mouseup', dragEnd);
+        console.log('Event listener for mouseup is registered.');
+      }
     }
 
     // Function to handle the drag movement
     function dragMove(event) {
       // Calculate the new position of the element based on the mouse movement and the initial offset
-      const left = event.clientX - offsetX;
-      const top = event.clientY - offsetY;
+      if (event.type === 'touchmove') {
+        const touch = event.touches[0];
+        const left = touch.clientX - offsetX;
+        const top = touch.clientY - offsetY;
 
-      // Apply the new position to the element
-      beeThoughtWrapper.style.left = left + 'px';
-      beeThoughtWrapper.style.top = top + 'px';
+        // Apply the new position to the element
+        // beeThoughtWrapper.style.left = left + 'px';
+        // beeThoughtWrapper.style.top = top + 'px';
+
+        beeThoughtWrapper.style.left = getComputedStyle(beeThoughtWrapper).getPropertyValue('left');
+        beeThoughtWrapper.style.top = getComputedStyle(beeThoughtWrapper).getPropertyValue('top');
+
+        // Log the position for debugging
+        const computedStyle = window.getComputedStyle(beeThoughtWrapper);
+        console.log(computedStyle.getPropertyValue('left'), computedStyle.getPropertyValue('top'));
+
+      } else {
+        const left = event.clientX - offsetX;
+        const top = event.clientY - offsetY;
+        beeThoughtWrapper.style.left = left + 'px';
+        beeThoughtWrapper.style.top = top + 'px';
+      }
+
+      console.log(beeThoughtWrapper.style.left, beeThoughtWrapper.style.top);
     }
 
     // Function to handle the end of the drag event
@@ -296,8 +324,17 @@ window.addEventListener('DOMContentLoaded', function () {
       beeThoughtWrapper.classList.remove('dragging');
 
       // Remove the event listeners for the drag events
-      document.removeEventListener('mousemove', dragMove);
-      document.removeEventListener('mouseup', dragEnd);
+      if (event.type === 'touchend') {
+        document.removeEventListener('touchmove', dragMove);
+        console.log('Event listener for touchmove is removed.');
+        document.removeEventListener('touchend', dragEnd);
+        console.log('Event listener for touchend is removed.');
+      } else {
+        document.removeEventListener('mousemove', dragMove);
+        console.log('Event listener for mousemove is removed.');
+        document.removeEventListener('mouseup', dragEnd);
+        console.log('Event listener for mouseup is removed.');
+      }
 
       // Commit position of bee in memory:
       sessionStorage.setItem('beePosition', JSON.stringify({ left: beeThoughtWrapper.style.left, top: beeThoughtWrapper.style.top }));
@@ -305,6 +342,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Attach the event listener for the start of the drag event
     beeThoughtWrapper.addEventListener('mousedown', dragStart);
+    beeThoughtWrapper.addEventListener('touchstart', dragStart);
   }
 
   function retrieveBeePosition() {
@@ -330,8 +368,7 @@ window.addEventListener('DOMContentLoaded', function () {
         if (event.touches.length > 1) {
           submitForm();
         }
-      }
-      );
+      });
 
       function submitForm() {
         const beeForm = document.getElementById('beeForm');

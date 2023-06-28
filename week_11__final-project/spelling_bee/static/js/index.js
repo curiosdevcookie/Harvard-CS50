@@ -187,7 +187,6 @@ window.addEventListener('DOMContentLoaded', function () {
   }
 
   // Show/hide definition:
-
   const iconInfoDefinition = document.getElementsByClassName('icon-info-definition');
 
   if (iconInfoDefinition) {
@@ -204,5 +203,16 @@ window.addEventListener('DOMContentLoaded', function () {
 
   function showDialog() {
     dialogInfoDefinition.show();
+  }
+
+  // Show spinner on click:
+
+  const buttonSubmit = document.getElementById('submit');
+  if (buttonSubmit) {
+    buttonSubmit.addEventListener('click', showSpinner);
+  }
+  function showSpinner() {
+    const spinner = document.getElementById('spinner');
+    spinner.style.display = 'block';
   }
 });

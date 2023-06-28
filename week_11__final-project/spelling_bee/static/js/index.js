@@ -38,7 +38,15 @@ window.addEventListener('DOMContentLoaded', function () {
 
   animateBeeOncePerScreensize();
 
+  showBeeBubble();
+
   closeDialogDefinition();
+
+  retrieveBeePosition();
+
+  dragBee();
+
+  beeSubmit();
 
   function showInstructionsDialog() {
     const dialog = document.getElementById('dialog-instructions');
@@ -159,9 +167,8 @@ window.addEventListener('DOMContentLoaded', function () {
         beeThoughtWrapper.style.animation = 'fly-small-screens 13s';
         beeThoughtWrapper.style.top = '15%';
         beeThoughtWrapper.style.left = '55%';
-        thoughtBubble.style.bottom = '50%';
-        thoughtBubble.style.transform = 'translateX(75%)';
-        thoughtBubble.setAttribute('transform', 'translate (25, 50)');
+        thoughtBubble.style.top = '-9rem';
+        thoughtBubble.style.left = '5rem';
         beeInnerWrapper.setAttribute('transform', 'rotate(90 50 50)');
         beeThoughtWrapper.addEventListener('animationend', showHideThoughtBubble);
 
@@ -169,15 +176,30 @@ window.addEventListener('DOMContentLoaded', function () {
         // Add class for larger screens and set animation duration
         bee.style.animation = 'jiggle 1s infinite';
         beeThoughtWrapper.style.animation = 'fly-large-screens 13s';
-        beeThoughtWrapper.style.top = '20%';
+        beeThoughtWrapper.style.top = '15%';
         beeThoughtWrapper.style.right = '68%';
-        thoughtBubble.style.bottom = '50%';
+        thoughtBubble.style.top = '-15rem';
         thoughtBubble.style.left = '30%';
         beeThoughtWrapper.addEventListener('animationend', showHideThoughtBubble);
         bee.addEventListener('mouseenter', showHideThoughtBubble);
 
       }
       sessionStorage.setItem('beeShown', 'true');
+    }
+  }
+
+  function showBeeBubble() {
+    const bee = document.getElementById('beeOne');
+    const beeThoughtWrapper = document.getElementById('beeThoughtWrapper');
+    const thoughtBubble = document.getElementById('thoughtBubble');
+
+    if (window.innerWidth > 768) {
+
+      beeThoughtWrapper.style.top = '15%';
+      beeThoughtWrapper.style.right = '68%';
+      thoughtBubble.style.top = '-15rem';
+      thoughtBubble.style.left = '30%';
+      bee.addEventListener('mouseenter', showHideThoughtBubble);
     }
   }
 
@@ -232,6 +254,89 @@ window.addEventListener('DOMContentLoaded', function () {
       body.addEventListener('click', function () {
         dialogDefinition.close();
       });
+    }
+  }
+
+  // Make the beeOne draggable/droppable:
+  function dragBee() {
+    const beeThoughtWrapper = document.getElementById('beeThoughtWrapper');
+
+    // Variables to store the position of the dragged element
+    let offsetX = 0;
+    let offsetY = 0;
+
+    // Function to handle the start of the drag event
+    function dragStart(event) {
+      // Store the initial position of the mouse pointer relative to the element
+      offsetX = event.clientX - parseFloat(window.getComputedStyle(beeThoughtWrapper).getPropertyValue('left'));
+      offsetY = event.clientY - parseFloat(window.getComputedStyle(beeThoughtWrapper).getPropertyValue('top'));
+
+      // Add the 'dragging' class fpr styling
+      beeThoughtWrapper.classList.add('dragging');
+
+      // Add  event listeners for the drag events
+      document.addEventListener('mousemove', dragMove);
+      document.addEventListener('mouseup', dragEnd);
+    }
+
+    // Function to handle the drag movement
+    function dragMove(event) {
+      // Calculate the new position of the element based on the mouse movement and the initial offset
+      const left = event.clientX - offsetX;
+      const top = event.clientY - offsetY;
+
+      // Apply the new position to the element
+      beeThoughtWrapper.style.left = left + 'px';
+      beeThoughtWrapper.style.top = top + 'px';
+    }
+
+    // Function to handle the end of the drag event
+    function dragEnd(event) {
+      // Remove the 'dragging' class from the elements
+      beeThoughtWrapper.classList.remove('dragging');
+
+      // Remove the event listeners for the drag events
+      document.removeEventListener('mousemove', dragMove);
+      document.removeEventListener('mouseup', dragEnd);
+
+      // Commit position of bee in memory:
+      sessionStorage.setItem('beePosition', JSON.stringify({ left: beeThoughtWrapper.style.left, top: beeThoughtWrapper.style.top }));
+    }
+
+    // Attach the event listener for the start of the drag event
+    beeThoughtWrapper.addEventListener('mousedown', dragStart);
+  }
+
+  function retrieveBeePosition() {
+    const beeThoughtWrapper = document.getElementById('beeThoughtWrapper');
+
+    // Retrieve the position from localStorage
+    const storedPosition = sessionStorage.getItem('beePosition');
+
+    if (storedPosition) {
+      const { left, top } = JSON.parse(storedPosition);
+      beeThoughtWrapper.style.left = left;
+      beeThoughtWrapper.style.top = top;
+    }
+  }
+
+
+  function beeSubmit() {
+    const bee = document.getElementById('beeOne');
+    if (bee) {
+      bee.addEventListener('dblclick', submitForm);
+      // double tap on the submit button:
+      bee.addEventListener('touchstart', function (event) {
+        if (event.touches.length > 1) {
+          submitForm();
+        }
+      }
+      );
+
+      function submitForm() {
+        const beeForm = document.getElementById('beeForm');
+        beeForm.submit();
+      }
     }
   }
 });

@@ -141,14 +141,14 @@ main {
   #beeOne {
     position: fixed;
     top: 15%;
-    left: 65%;
+    left: 55%;
     animation: jiggle 1s infinite;
     z-index: 2;
   }
   
   #thoughtBubble {
     display: none;
-    position: fixed;
+    position: absolute;
   }
 }
 
@@ -202,14 +202,16 @@ h6 {
 /* Bee */
 
 #beeOne {
+  position: fixed;
   width: calc(5rem + 5vw);
   animation: jiggle 1s infinite;
   z-index: 2;
+  cursor: pointer;
 }
 
 #beeThoughtWrapper {
   position: absolute;
-  top: 20%;
+  top: 15%;
   right: 68%;
   z-index: 2;
 }
@@ -218,6 +220,16 @@ h6 {
   display: none;
   position: absolute;
   width: calc(7rem + 10vw);
+}
+
+#bubble-text {
+  color: var(--color-rebeccapurple);
+  vertical-align: middle;
+}
+
+.dragging {
+  opacity: 0.5;
+  cursor: grabbing;
 }
 
 /* Comb */
@@ -270,11 +282,6 @@ button {
   background-color: var(--color-white);
   border: none;
   font-size: calc(0.9rem + 1vw);
-}
-
-#buttonBeeRegenerate {
-  background-color: transparent;
-  border: none;
 }
 
 #github-icon {
@@ -561,7 +568,7 @@ dialog {
   }
 
   100% {
-    top: 20%;
+    top: 15%;
     right: 68%;
   }
 }

@@ -50,7 +50,13 @@ body {
   font-size: calc(0.4rem + 1vw);
   background-color: var(--color-yellow);
   color: var(--color-graphite);
+  height: 100%;
 }
+
+main {
+  height: 100%;
+}
+
 
 /* Grids */
 

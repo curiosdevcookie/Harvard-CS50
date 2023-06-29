@@ -136,20 +136,6 @@ main {
     align-self: self-start;
     display: none;
   }
-
-  /* Bee smaller screens */
-  #beeOne {
-    position: fixed;
-    top: 15%;
-    left: 55%;
-    animation: jiggle 1s infinite;
-    z-index: 2;
-  }
-  
-  #thoughtBubble {
-    display: none;
-    position: absolute;
-  }
 }
 
 #comb {
@@ -214,6 +200,7 @@ h6 {
   top: 15%;
   right: 68%;
   z-index: 2;
+  touch-action: none;
 }
 
 #thoughtBubble {

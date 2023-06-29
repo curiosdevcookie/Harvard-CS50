@@ -167,8 +167,8 @@ window.addEventListener('DOMContentLoaded', function () {
         beeThoughtWrapper.style.animation = 'fly-small-screens 13s';
         beeThoughtWrapper.style.top = '15%';
         beeThoughtWrapper.style.left = '55%';
-        thoughtBubble.style.top = '-9rem';
-        thoughtBubble.style.left = '5rem';
+        thoughtBubble.style.top = '-7rem';
+        thoughtBubble.style.left = '4rem';
         beeInnerWrapper.setAttribute('transform', 'rotate(90 50 50)');
         beeThoughtWrapper.addEventListener('animationend', showHideThoughtBubble);
 
@@ -275,47 +275,22 @@ window.addEventListener('DOMContentLoaded', function () {
       beeThoughtWrapper.classList.add('dragging');
 
       // Add event listeners for the drag events
-
-      if (event.type === 'touchstart') {
-        document.addEventListener('touchmove', dragMove);
-        console.log('Event listener for touchmove is registered.');
-        document.addEventListener('touchend', dragEnd);
-        console.log('Event listener for touchend is registered.');
-      } else {
-        document.addEventListener('mousemove', dragMove);
-        console.log('Event listener for mousemove is registered.');
-        document.addEventListener('mouseup', dragEnd);
-        console.log('Event listener for mouseup is registered.');
-      }
+      document.addEventListener('pointermove', dragMove);
+      document.addEventListener('pointerup', dragEnd);
     }
 
     // Function to handle the drag movement
     function dragMove(event) {
+
+      event.preventDefault();
+
       // Calculate the new position of the element based on the mouse movement and the initial offset
-      if (event.type === 'touchmove') {
-        const touch = event.touches[0];
-        const left = touch.clientX - offsetX;
-        const top = touch.clientY - offsetY;
+      const left = event.clientX - offsetX;
+      const top = event.clientY - offsetY;
 
-        // Apply the new position to the element
-        // beeThoughtWrapper.style.left = left + 'px';
-        // beeThoughtWrapper.style.top = top + 'px';
-
-        beeThoughtWrapper.style.left = getComputedStyle(beeThoughtWrapper).getPropertyValue('left');
-        beeThoughtWrapper.style.top = getComputedStyle(beeThoughtWrapper).getPropertyValue('top');
-
-        // Log the position for debugging
-        const computedStyle = window.getComputedStyle(beeThoughtWrapper);
-        console.log(computedStyle.getPropertyValue('left'), computedStyle.getPropertyValue('top'));
-
-      } else {
-        const left = event.clientX - offsetX;
-        const top = event.clientY - offsetY;
-        beeThoughtWrapper.style.left = left + 'px';
-        beeThoughtWrapper.style.top = top + 'px';
-      }
-
-      console.log(beeThoughtWrapper.style.left, beeThoughtWrapper.style.top);
+      // Apply the new position to the element
+      beeThoughtWrapper.style.left = left + 'px';
+      beeThoughtWrapper.style.top = top + 'px';
     }
 
     // Function to handle the end of the drag event
@@ -324,37 +299,28 @@ window.addEventListener('DOMContentLoaded', function () {
       beeThoughtWrapper.classList.remove('dragging');
 
       // Remove the event listeners for the drag events
-      if (event.type === 'touchend') {
-        document.removeEventListener('touchmove', dragMove);
-        console.log('Event listener for touchmove is removed.');
-        document.removeEventListener('touchend', dragEnd);
-        console.log('Event listener for touchend is removed.');
-      } else {
-        document.removeEventListener('mousemove', dragMove);
-        console.log('Event listener for mousemove is removed.');
-        document.removeEventListener('mouseup', dragEnd);
-        console.log('Event listener for mouseup is removed.');
-      }
+      document.removeEventListener('pointermove', dragMove);
+      document.removeEventListener('pointerup', dragEnd);
 
       // Commit position of bee in memory:
-      sessionStorage.setItem('beePosition', JSON.stringify({ left: beeThoughtWrapper.style.left, top: beeThoughtWrapper.style.top }));
+      const newPosition = { left: beeThoughtWrapper.style.left, top: beeThoughtWrapper.style.top };
+      sessionStorage.setItem('beePosition', JSON.stringify(newPosition));
     }
 
     // Attach the event listener for the start of the drag event
-    beeThoughtWrapper.addEventListener('mousedown', dragStart);
-    beeThoughtWrapper.addEventListener('touchstart', dragStart);
+    beeThoughtWrapper.addEventListener('pointerdown', dragStart);
   }
 
   function retrieveBeePosition() {
     const beeThoughtWrapper = document.getElementById('beeThoughtWrapper');
 
-    // Retrieve the position from localStorage
+    // Retrieve the position from sessionStorage
     const storedPosition = sessionStorage.getItem('beePosition');
 
     if (storedPosition) {
       const { left, top } = JSON.parse(storedPosition);
-      beeThoughtWrapper.style.left = left;
-      beeThoughtWrapper.style.top = top;
+      beeThoughtWrapper.style.left = parseFloat(left) + 'px';
+      beeThoughtWrapper.style.top = parseFloat(top) + 'px';
     }
   }
 
@@ -364,8 +330,15 @@ window.addEventListener('DOMContentLoaded', function () {
     if (bee) {
       bee.addEventListener('dblclick', submitForm);
       // double tap on the submit button:
+      let lastTap = 0;
       bee.addEventListener('touchstart', function (event) {
-        if (event.touches.length > 1) {
+        const currentTime = new Date().getTime();
+        const tapLength = currentTime - lastTap;
+        lastTap = currentTime;
+
+        // Check if the same touch point is tapped twice within a certain time threshold
+        if (tapLength < 300) {
+          event.preventDefault();
           submitForm();
         }
       });

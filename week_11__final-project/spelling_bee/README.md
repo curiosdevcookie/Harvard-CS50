@@ -2,11 +2,15 @@
 
 We love playing the [Spelling Bee of the NY Times](https://www.nytimes.com/puzzles/spelling-bee).
 
-So I thaught that this would make a fun challenge for me to implement. To give it a little spin, this is Spelling Bee with the Urban Dictionary as its lexicon.
+So I thaught that this would make a fun challenge for me to implement. To give it a little spin, this is Spelling Bee with the Urban Dictionary as its lexicon: [Urban Spelling Bee](https://urban-spelling-bee.fly.dev).
 
-Also, as we aren't English native speakers, the player is provided with the definition of the word if the word is found in the dictionary.
+Also, as I'm not an English native speaker, I thought to learn a thing or two, the player is provided with the definition of the word if the word is found in the dictionary.
 
-_Protip_: Click on the bee to get a new set of letters!
+_Protips_:
+
+* Double-click on the 🐝  to get a new set of letters!
+* Click on the ℹ️ next to a word to get its definition!
+* … is the 🐝 in your way? Just drag'n'drop them to a new location!
 
 ## How to play
 
@@ -18,16 +22,16 @@ The game is played as follows:
 4. All letters can be used multiple times.
 5. If the word is found in the dictionary, you're provided with its definition and the word is added to your word list.
 
-## How to run the app, choose:
+## How to run the app, choose one of the following options
 
-- [Run the app locally](#run-the-app-locally)
-  - [Installation](#installation)
-  - [Set up the database](#set-up-the-database)
-  - [Configuration](#configuration)
-  - [Run the app](#run-the-app)
-- [Run the app via Docker](#run-the-app-via-docker)
-  - [Installation](#installation-1)
-  - [Run the app](#run-the-app-1)
+* [Run the app locally](#run-the-app-locally)
+  * [Installation](#installation)
+  * [Set up the database](#set-up-the-database)
+  * [Configuration](#configuration)
+  * [Run the app](#run-the-app)
+* [Run the app via Docker](#run-the-app-via-docker)
+  * [Installation](#installation-1)
+  * [Run the app](#run-the-app-1)
 
 ## Run the app locally
 

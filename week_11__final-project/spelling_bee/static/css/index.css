@@ -45,18 +45,14 @@
 }
 
 /*GENERAL STYLING*/
+
 body {
   font-family: var(--font-headings);
   font-size: calc(0.4rem + 1vw);
   background-color: var(--color-yellow);
   color: var(--color-graphite);
-  height: 100%;
+  padding: calc(1rem + 3vh);
 }
-
-main {
-  height: 100%;
-}
-
 
 /* Grids */
 
@@ -64,8 +60,7 @@ body {
   display: grid;
   grid-template-areas: "header" "main" "footer";
   grid-template-columns: 1fr;
-  grid-template-rows: 10rem 1fr 10rem;
-  row-gap: 3rem;
+  grid-template-rows: min-content 1fr min-content;
 }
 
 header {
@@ -82,26 +77,23 @@ main {
 footer {
   grid-area: footer;
   text-align: right;
-  margin-top: 5rem;
 }
 
 main {
   display: grid;
-  grid-template-areas: "list comb input" "list comb scores" "list comb shareResults" "instructions instructions .";
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 15rem 1fr 10rem 20rem;
-  row-gap: 2rem;
-  column-gap: 3rem;
-  padding: 0 calc(3rem + 1vw);
+  grid-template-areas:  "list comb input" 
+                        "list comb scores" 
+                        "instructions instructions shareResults";
+  grid-template-columns: 30% 1fr 30%;
+  grid-template-rows: min-content 1fr min-content;
+  row-gap: calc(0.5rem + 3vw);
+  margin-top: calc(1rem + 3vw);
 }
 
 @media (max-width: 768px) {
-  body {
-    row-gap: 0.5rem;
-  }
 
-  footer {
-    margin-top: -1rem;
+  body {
+    padding: calc(1rem + 1vw);
   }
 
   main {
@@ -128,24 +120,31 @@ main {
   }
 
   #results {
-  grid-area: shareResults;
-  justify-self: end;
-  align-self: center;
+    grid-area: shareResults;
+    align-self: center;
+  }
+
+  #word-list {
+    grid-area: list;
+    height: 120%;
   }
 
   #results > p {
     display: none;
+    align-self: start;
   }
 
   #instructions {
     grid-area: instructions;
-    align-self: self-start;
     display: none;
+    margin-top: 3.5rem;
   }
 }
 
 #comb {
   grid-area: comb;
+  justify-self: center;
+  align-items: center;
 }
 
 #input {
@@ -160,6 +159,7 @@ main {
 
 #word-list {
   grid-area: list;
+  height: 100%;
 }
 
 #instructions {
@@ -171,11 +171,19 @@ main {
   grid-area: scores;
 }
 
-
 #word-list-ul {
-  font-family: var(--font-handwriting);
   list-style-type: none;
-  padding-left: 1rem;
+  column-count: 2;
+  column-fill: auto;
+  height: 75%;
+  font-family: var(--font-handwriting);
+  font-size: calc(0.6rem + 1vw);
+  background-color: var(--color-white);;
+  padding: calc(0.5rem + 1vw);
+  border: 0.2rem solid var(--color-graphite);
+  border-radius: 0.5rem;
+  resize: none;
+  outline: none;
 }
 
 /* Headings */
@@ -309,20 +317,6 @@ input {
   gap: 1rem;
   justify-content: space-between;
   align-items: center;
-}
-
-#word-list-ul {
-  min-height: 18vw;
-  column-count: 2;
-  column-fill: auto;
-  font-family: var(--font-handwriting);
-  font-size: calc(0.6rem + 1vw);
-  background-color: var(--color-white);;
-  padding: calc(0.5rem + 1vw);
-  border: 0.2rem solid var(--color-graphite);
-  border-radius: 0.5rem;
-  resize: none;
-  outline: none;
 }
 
 #score-area {

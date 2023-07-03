@@ -12,6 +12,14 @@ _Protips_:
 * Click on the ℹ️ next to a word to get its definition!
 * … is the 🐝 in your way? Just drag'n'drop them to a new location!
 
+### Wanna see the game in action?
+
+Click here, to see a [Video Demo](https://urban-spelling-bee.fly.dev/screencast).
+
+### Wanna play the game?
+
+Click here, to play the [Urban Spelling Bee](https://urban-spelling-bee.fly.dev).
+
 ## How to play
 
 The game is played as follows:

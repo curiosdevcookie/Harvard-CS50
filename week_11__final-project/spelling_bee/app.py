@@ -285,3 +285,9 @@ def highscore(word):
 def is_pangram(term):
     random_seven = session.get('random_seven')
     return all(char in term for char in random_seven)
+
+
+@app.route('/screencast', methods=['GET'])
+def screencast_get():
+    return render_template('screencast.html')
+
